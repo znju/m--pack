@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>NCDView</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<LINK REL="stylesheet" HREF="nept.css">
+<style type="text/css">
+<!--
+.style1 {
+  color: #0000FF;
+  font-weight: normal;
+}
+.edit { color: firebrick}
+.text { color: darkblue}
+
+a.menu{text-decoration:none; color:#000000}
+a.menu:hover{text-decoration: underline; color:#0000FF}
+
+a{text-decoration:none; color:blue}
+a:hover{text-decoration: underline; color:blue}
+-->
+</style>
+</head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" style="border:0px solid green; background-color: #f7f7f7 ">
+
+  <tr>
+    <td width="83%" height="50" align="left">
+      <a href="http://neptuno.fis.ua.pt/~mma/NCDView"><img src="images/ncdview.gif" border=0></a>
+      Matlab GUI for NetCDF visualization
+    </td>
+    <td width="12%" align="right" style="vertical-align:bottom">
+      <!---<span class="text"><small><a href="http://neptuno.fis.ua.pt">neptuno.fis.ua.pt</a></small></span>-->
+    </td>
+    <td width="5%" align="right" style="vertical-align:bottom">
+      <!--<a href="http://neptuno.fis.ua.pt/~mma"><img src="images/neptuno_new_var1.gif" border="0" align="right"></a>-->
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="3" align="center" style="background-color: #C0DFBD; border-bottom: 1px solid green ">
+      <span class="style1">|</span>
+      <a href="ncdview.htm" class="menu">   intro     </a> <span class="style1">|</span>
+      <a href="gui.htm" class="menu">       gui       </a>
+      <span class="style1">| tutorial |</span>
+      <a href="snapshots.htm" class="menu"> snapshots </a> <span class="style1">|</span>
+      <a href="download.htm" class="menu">  download  </a> <span class="style1">|</span>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="3" style="padding:10px ">
+
+
+
+
+
+     NCDView tutorial:<p>
+
+     At the matlab prompt, start NCDView:<br>
+     &gt;&gt; ncdv<p>
+
+     From here all is done with the NetCDF file air.2m.gauss.2002.nc, from the NCEP Reanalysis.<br>
+     Available free at:<br>
+     <a href="ftp://ftp.cdc.noaa.gov/Datasets/ncep.reanalysis/surface_gauss/air.2m.gauss.2002.nc">
+     ftp://ftp.cdc.noaa.gov/Datasets/ncep.reanalysis/surface_gauss/air.2m.gauss.2002.nc</a> (51M).
+     <p>
+     Step 12 (velocity field) uses the NCEP Reanalysis files uwnd.10m.gauss.2002.nc and  vwnd.10m.gauss.2002.nc,
+     available at:<br>
+     <a href="ftp://ftp.cdc.noaa.gov/Datasets/ncep.reanalysis/surface_gauss/uwnd.10m.gauss.2002.nc">
+     ftp://ftp.cdc.noaa.gov/Datasets/ncep.reanalysis/surface_gauss/uwnd.10m.gauss.2002.nc</a> (51M)<br>
+     <a href="ftp://ftp.cdc.noaa.gov/Datasets/ncep.reanalysis/surface_gauss/vwnd.10m.gauss.2002.nc">
+     ftp://ftp.cdc.noaa.gov/Datasets/ncep.reanalysis/surface_gauss/vwnd.10m.gauss.2002.nc</a> (51M)
+     <p>
+     I will call these three files, file_temp, file_u and file_v.<p>
+
+     <br>tutorial: <p>
+     <ol style="line-height: 1.7">
+       <li> load file_temp: menu <em>file</em> --&gt; <em>load</em></li>
+       <li> select variable air: menu <em>&lt;3-D&gt;</em> --&gt; <em>air</em></li>
+       <li> change range: click  in the first <span class=edit>&gt;</span> button to start at the 
+            first index in the first dimension. You should now have something like <a href=images/tutorial_2.gif>this</a></li>
+       <li> change gui size: menu <em>misc</em> --&gt; <em>gui size</em> --&gt; <em>horiz +25%</em>.
+            Result <a href=images/tutorial_3.gif>here</a></li>
+       <li> use X and Y variables: if you check the menu <em>&lt;1-D&gt;</em> you will find the variables lon and lat.
+            Edit these names in the X and Y edit boxes. Select the associated checkbox and press
+            <span class=text>display</span>. Result <a href=images/tutorial_4.gif>here</a></li>
+       <li> overlay world coastline: menu <em>misc</em> --&gt; <em>overlay</em> --&gt; <em>WCL 0:360</em>.
+            Result <a href=images/tutorial_5.gif>here</a></li>
+       <li> change line color and width: right mouse click over  the coastline and select <em>LineWidth 2</em> and
+            <em>color black</em>.
+            Result <a href=images/tutorial_6.gif>here</a></li>
+       <li> keep this overlay: menu <em>misc</em> --&gt; <em>overlay</em> --&gt; <em>always</em>.
+            Now clicking in the first <span class=edit>&gt;</span> button</li> to change time index will make new plot
+            with this overlay.
+       <li> keep zoom: press axis equal, press zoom and make Italy zoom.
+            Now select <em>misc</em> --&gt; <em>set limits</em> --&gt; <em>all</em>.
+            Result is like <a href=images/tutorial_7.gif>this</a></li>
+       <li> see evolution of zoomed region: click in the first <span class=edit>&gt;</span> button to change time index.
+            You will see always the zoomed area.<br>
+            If <em>misc</em> --&gt; <em>set limits</em> --&gt; <em>all</em>  was not done we would obtain something
+            like in step 6.<br>
+            Now just uncheck the checkboxes in the bottom right corner (xlim, ylim, zlim and dataAspectRatio) and
+            press <span class=text>display</span>.<br>
+            You will obtain same as in 6 (but with axis equal)</li>
+       <li> see evolution (until end of index): selecting menu  <em>misc</em> --&gt; <em>auto&gt;&lt; </em> , a dialog
+            box will appear where you can select the dimensions where automatic evolution will be applied.<br>
+            Select the first (I) and press OK.<br>
+            In the first dimension edit boxes put a step of 100 and press <span class=edit>&gt;</span>.<br>
+            Before, better activate the caxis checkbox, so that caxis be the same through the animation.<br>
+            So, now you have see the evolution with a step of 100 until the end of first dimension</li>
+       <li> velocity field: load file_u; load file_v; go to menu <em>NCDV</em> --&gt; <em>files</em> and choose
+            the file [2] (file_u).<br>
+            Go till menu <em>&lt;3-D&gt;</em> --&gt; <em>uwnd</em>.<br>
+            Now in the variables name edit box (first, at the top left corner), is written uwnd(2). Now, you should
+            add ',vwnd(3)', so that in this box must be written <span class=edit>uwnd(2),vwnd(3)</span>.<br>
+            Edit the 2nd and 3rd dimension edit boxes putting there a step of 3 in each.<br>
+            Press <span class=text>display</span>; now you may click press <span class=edit>&gt;</span> as you wish,
+            considering you already unchecked I in  the dialog <em>misc</em> --&gt; <em>auto&gt;&lt; </em>.<br>
+            But scale seems not ok, so go to scale and offset edit boxes and insert half of the value you find.<br>
+            A good thing to do also before next <span class=edit>&gt;</span> is to freeze xlim and ylim by activating
+            the xlim and ylim checkboxes. After all here is the <a href="images/tutorial_velocity.gif">result</a></li>
+
+       <li> get result in normal window: to  print the result better to copy the image to another figure<br>
+            Use the button <span class=text>free</span> and you will get <a href=images/tutorial_free.gif>this</a>
+            </li>
+
+     </ol>
+
+
+
+
+
+
+
+   </td>
+  <tr style="height:100px"><td colspan="3"></td></tr>
+  <tr>
+    <td align="left" style="background-color: #C0DFBD; border-top: 1px solid green; padding-left:20px ">
+      <a href=ncdview.htm>home </a> |
+      <a href=snapshots.htm>snapshots &gt;&gt; </a>
+    </td>
+    <td colspan="2" align="right" class="text" style="background-color: #C0DFBD; border-top: 1px solid green; padding-right:20px " nowrap>
+      <small><a href="http://neptuno.fis.ua.pt/%7Emma">MMA</a> , Jun 2004 &nbsp;&nbsp;&nbsp;
+      <a href="mailto:martinho@fis.ua.pt?Subject=NCDView">e-mail</a>
+      </small>
+    </td>
+  </tr>
+
+</table>
+</body>
+</html>

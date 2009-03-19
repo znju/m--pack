@@ -1,0 +1,108 @@
+<html>
+<head>
+<title>SpectrHA, load files</title>
+<LINK REL="stylesheet" HREF="geral_b.css">
+</head>
+<body>
+<b>load files</b>
+<p>
+The following files can be loaded:<p>
+<font color="#FF0000">#</font>
+Grid: SEAGRID file or ROMS history file<br>
+- press button [grid]<br>
+  - when load a new grid, a new stations file (bellow) should also be loaded<br>
+- variables used are:<br>
+longitude, <i>lon_rho</i> or  <i>x_rho</i><br>
+latitude, <i>lat_rho</i> or  <i>y_rho</i><br>
+bathymetry, <i>h</i>
+<p> 
+<font color="#FF0000">#</font>
+Coastline: mat file with variables <i>lon</i> and <i>lat</i><br>
+- use menu [SpectrHA] >> [overlay] >> [coastline]
+<p>
+<font color="#FF0000">#</font>
+Stations: ROMS stations file or ROMS history file<br>
+- press button [station]<br>
+- variables used are:<br>
+longitude, <i>lon_rho</i> or  <i>x_rho</i><br>
+latitude, <i>lon_rho</i> or  <i>x_rho</i><br>
+bathymetry, <i>h</i><br>
+time, <i>ocean_time</i><br>
+ssh, <i>zeta</i><br>
+velocity, <i>u</i>, <i>v</i>, <i>ubar</i> and <i>vbar</i>
+<p> <font color="#FF0000">#</font> Data file: mat file with data to be analyses<br>
+- press button [file]<br>
+- variables needed:<br>
+<i>serie</i>, can be real or imaginary; imaginary part is interpreted as v-momentum<br>
+<i>interval</i>, interval in hours, default is 1h<br>
+<i>lon</i> and <i>lat</i>, just to show position on grid and maybe be used by T_TIDE; default is nan<br>
+<i>start_time</i>, start time of serie, as datenum; default is nan, otherwise it will be used by T_TIDE<br> 
+- example:
+<blockquote >
+<pre>
+>> interval=1;
+>> t=0:interval:30*24;
+>> serie=cos(2*pi*t/12)+0.5*cos(2*pi*t/12.4206-deg2rad(30));
+>> lon=-10;
+>> lat=40;
+>> start_time=datenum(2001,12,19,18,0,0);
+>> save example_1Dserie serie interval lon lat start_time
+>>
+>> % 2D serie:
+>> v=0.7*cos(2*pi*t/12-deg2rad(45))+0.2*cos(2*pi*t/12.4206);
+>> serie=serie+sqrt(-1)*v;
+>> save example_2Dserie serie interval lon lat start_time
+</pre>
+</blockquote>
+
+<p>
+<font color="#FF0000">#</font>
+Ellipse file: mat file with ellipse parameters<br>
+- press button [struc]<br>
+- variables needed:<br>
+<i>major</i>, <i>minor</i>, <i>inc</i> and <i>pha</i>, major axes, minor axes, inclination and phase of the ellipse<br>
+or, instead, use <i>tidestruc</i>, if you want to load several ellipses, directly from T_TIDE and LSF output<br>
+<i>lon</i> and <i>lat</i>, just to show position on grid, this way you can select a near station and compare...; default is nan<br>
+<i>color</i>, colors to be used drawing the ellipses<br>
+  if it is not present, or they are less than the ellipses being loaded, a default 
+  color (see configuration) is used<br>
+  color is a matrix of the kind [r g b; r g b; ...]<br>
+- example:
+<blockquote >
+<pre>
+>> major=1;
+>> minor=0.4;
+>> inc=10;
+>> pha=30;
+>> lon=-9;
+>> lat=41;
+>> color=[1 0 0];
+>> save example_ellipse major minor inc pha lon lat color
+>>
+>> % tidestruc:
+>> major=[1 0.7 0.2];
+>> minor=[0.4 0.2 0.1];
+>> inc=[10 70 120];
+>> pha=[30 0 90];
+>> lon=-10;
+>> lat=41;
+>> color=[1 0 0; 0 0 1; 0 0 0];
+>> err=zeros(size(major));
+>> tidecon=[major' err' minor' err'  inc' err'  pha' err'];
+>> tidestruc.tidecon=tidecon;
+>> save example_tidestruc tidestruc lon lat color
+</pre>
+</blockquote>
+
+<p>
+<hr>
+<center>
+&divide;
+<a href="intro.htm">[ home ]</a>
+&divide;
+<a href="mailto:martinho@fis.ua.pt?subject=SpectrHA">[ mail ]</a>
+&divide;
+</center>
+
+</body>
+</html>

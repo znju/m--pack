@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>SpectrHA, Spectral Harmonic Analysis</title>
+<LINK REL="stylesheet" HREF="geral_b.css">
+</head>
+
+<body>
+<center>
+<b>
+SpectrHA<br>
+Spectral Harmonic Analysis
+</b>
+<br>
+unique version, Jul-2003
+</center>
+<p>
+SpectrHA is a matlab tool to execute Fourier Spectral Analysis and Harmonic Least Squares Fit analysis of series.<br>
+  It's designed to be used with the output of the oceanographic model <a href="http://marine.rutgers.edu/po/index.php?page=&model=roms">ROMS</a> 
+  (Regional Ocean Model System), but can easily be changed to use any other sources. 
+<p>
+
+<b>Overview:</b><p> 
+-You can do Fourier Analysis and Least Squares Fit Harmonic Analysis 
+ from the ROMS history file, ROMS stations file or any external serie. 
+<p> -Least Squares Fit can easily be configured to any desired frequencies. 
+<p>
+-SpectrHA can use <a href="http://www2.ocgy.ubc.ca/~rich/#T_Tide">T_TIDE</a>
+ to perform tidal analysis and prediction. 
+<p> -Previously analyzed data can be loaded, for instance, as tidal ellipses and 
+  overlayed in your current analysis. 
+<p> -A fast analysis of the grid used in the modeling (either <a href="http://woodshole.er.usgs.gov/staffpages/cdenham/public_html/seagrid/seagrid.html">SEAGRID</a> 
+  file or ROMS output history file) is available, as well as analysis of vertical 
+  s-levels. 
+<p>
+-Zhigang Xu tidal ellipse routines ap2ep and ep2ap are used and distributed.
+<p>
+-This software was created with MATLAB 6.0 in Linux SuSe 8.0.<br>
+  I created SpectHA to make my work easier. Hope you find it useful.
+<p>
+-Copyright (c) 2003, Martinho Marta Almeida (<a href="http://www.gnu.org/licenses/gpl.txt">under GPL version 2</a>).
+<p>
+<b>Requirements:</b>
+<p>
+ - <a href="http://woodshole.er.usgs.gov/staffpages/cdenham/public_html/MexCDF/nc4ml5.html">NetCDF interface</a>
+for MATLAB, if you are going to use SEAGRID or ROMS files.
+<p> 
+ - <a href="http://www2.ocgy.ubc.ca/~rich/#T_Tide">T_TIDE</a>, for tidal analysis and prediction.
+<p>
+<hr>
+<center>
+&divide;
+<a href="intro.htm">[ home ]</a>
+&divide;
+<a href="mailto:martinho@fis.ua.pt?subject=SpectrHA">[ mail ]</a>
+&divide;
+</center>
+</body>
+</html>

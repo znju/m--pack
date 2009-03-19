@@ -1,0 +1,11 @@
+well, it looks like the last seagrid version (Jul-2003) is not working under Linux
+there is the error when clicking on the figure:
+
+  ## No valid event-handler for "ps" class: "windowbuttondownfcn" (figure = 1)
+
+so, it i include here a previous version (Oct-2002) that is used under Linux
+
+If you know what is happening please tell me: martinho@fis.ua.pt
+
+MMA, 11-1-2005
+

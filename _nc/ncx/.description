@@ -1,0 +1,5 @@
+NetCDF eXplorer
+0
+
+% flag at 2nd line means no Contents.m will be created here,
+% as if no .description existed. See mcontents

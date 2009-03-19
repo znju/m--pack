@@ -1,0 +1,91 @@
+<html>
+<head>
+<title>Spectrha</title>
+<LINK REL="stylesheet" HREF="geral_b.css">
+</head>
+<body>
+
+<b>SpectrHA</b>
+<br>
+
+<a href="intro.htm" target="mainFrame">
+<img src="text.gif" border="0" >introduction
+</a>
+<br>
+
+<a href="load.htm" target="mainFrame">
+<img src="text.gif" border="0">load files
+</a>
+<br>
+
+<a href="analysis.htm" target="mainFrame">
+<img src="text.gif" border="0">analysis
+</a>
+<br>
+
+<a href="gui.htm" target="mainFrame">
+<img src="text.gif" border="0">gui
+</a>
+<br>
+
+<a href="config.htm" target="mainFrame">
+<img src="text.gif" border="0">configuration
+</a>
+<br>
+
+<a href="misc.htm" target="mainFrame">
+<img src="text.gif" border="0">misc
+</a>
+<br>
+
+<a href="files.htm" target="mainFrame">
+<img src="text.gif" border="0">files(apps)
+</a>
+<br>
+
+<a href="links.htm" target="mainFrame">
+<img src="text.gif" border="0">links
+</a>
+
+<br>
+<a href="snapshots.htm" target="mainFrame">
+<img src="text.gif" border="0">snapshots
+</a>
+
+<!--
+<br>
+<a href="download.htm" target="mainFrame">
+<img src="text.gif" border="0">download
+</a>
+-->
+
+<br>
+<a href="tutorial.htm" target="mainFrame">
+<img src="text.gif" border="0">tutorial
+</a>
+
+<!--
+<p>
+last update:<br>
+30-Jul-2003
+
+<p>
+ 
+<?php
+/* counter */
+$datei = fopen("countlog.txt","r"); //opens countlog.txt to read
+$count = fgets($datei,1000);
+fclose($datei);
+$count=$count + 1 ;
+echo "vistor:<br>" ;
+echo "$count" ;
+echo "\n<br>" ;
+$datei = fopen("countlog.txt","w"); // opens to write and deletes the old count
+fwrite($datei, $count);
+fclose($datei);
+?>
+-->
+
+</body>
+</html>
+

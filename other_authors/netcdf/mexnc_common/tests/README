@@ -1,0 +1,21 @@
+You can use the m-file "test_mexnc.m" to run all the tests.  Be sure that
+your path is set correctly and will pick up the new version of mexnc.
+"text_mexnc" will prompt you for confirmation on this.
+
+Caveats:  
+Quite often when I find a bug, after fixing it I will add code to the test
+suite to explicitly test that bug to make sure it is fixed.  So if you
+are one of those people who have a build that is older than the latest
+release then you should not expect your mexfile to pass the latest test
+suite, and in that case it might be easier to just not bother with it.
+The test suite is more for people who want to contribute a mex-file
+build for an architecture for which I personally don't have access.
+If you really want to try it, though, what you can do is to download
+the test suite for your particular build and try that.  For example,
+if your mex file is compiled against the 2.0.3 release, you can retrieve
+the 2.0.3 test suite from CVS with
+
+cvs -d:pserver:anonymous@cvs.sf.net:/cvsroot/mexcdf login
+<< hit return when asked for the password >>
+cvs -d:pserver:anonymous@cvs.sf.net:/cvsroot/mexcdf co -r mexnc-2_0_3 -P mexnc
+

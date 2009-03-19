@@ -1,0 +1,147 @@
+<html>
+<head>
+<title>Untitled Document</title>
+<LINK REL="stylesheet" HREF="geral_b.css">
+</head>
+
+<body>
+<a name="top">
+<b>gui</b>
+</a>
+<p>
+
+<img src="spectrha.gif" width="551" height="403" border="0" usemap="#guiMap">
+<map name="guiMap">
+  <area shape="rect" alt="" coords="19,23,314,206" href="#spectrum">
+  <area shape="rect" alt="" coords="347,22,533,331" href="#grid">
+  <area shape="rect" alt="" coords="19,268,227,384" href="#output">
+  <area shape="rect" alt="" coords="348,344,534,383" href="#under_grid">
+  <area shape="rect" alt="" coords="18,214,143,255" href="#radio">
+  <area shape="rect" coords="247,216,313,253" href="#under_spect">
+  <area shape="rect" coords="248,261,314,298" href="#load">
+  <area shape="rect" coords="248,303,314,342" href="#analysis">
+  <area shape="rect" coords="248,346,314,385" href="#predic">
+  <area shape="rect" coords="-8,1,85,19" href="#menu">
+</map>
+<p>
+<a name="spectrum"><font color="#FF0000">[1]</font></a> plot area<br>
+- place where will be plotted all the data and results<br>
+<p> 
+
+<a name="grid"><font color="#FF0000">[2]</font></a> grid axes<br>
+- place where will be plotted the grid, mask, contours, location of stations, location of loaded files and coastlines<br>
+<p> 
+
+<a name="output"><font color="#FF0000">[3]</font></a> output area<br>
+- place where output of analysis will be displayed; every line got data from one frequency;<br>
+only the first ten (more significant) will be displayed in case of FSA<br>
+a mouse click on each line will plot a maker on the selected frequency; in case of 2D analysis and ellipses are plotted,<br>
+ first click will select the proper ellipse (hiding all others), second will make it bold and third will give it back as default<br>
+
+<p>
+<a href="#top"><img src="top.png" border=0></a>
+<p>
+
+<a name="under_grid"><font color="#FF0000">[4]</font></a><br>
+[grid] load grid: SEAGRID file, ROMS history file<br>
+[station] load stations file: ROMS history file or ROMS stations file<br>
+[contours] plot bathymetric contours, write the desired values, ex.: <em>200 500</em> or <em>10:10:100</em><br>
+[clabel] put labels on contours<br>
+  [axis equal] toggle between axis equal and normal<br>
+[grids] add gridlines<br>
+[select] select a station<br>
+[sta#] enter the station number you want; if locations are a matrix instead 
+of a vector you can insert the linear index or i j<br>
+[<em>variable</em>] popupmenu to select variable (free surface, velocities)<br>
+[<em>level</em>] popupmenu to select vertical level<br>
+[z] edit desired depth (positive means below 0)<br>
+[<em>checkbox</em>] when checked depths are used instead of s-levels<br>
+
+<p>
+<a href="#top"><img src="top.png" border=0></a>
+<p> 
+
+<a name="radio"><font color="#FF0000">[5]</font></a> radio buttons<br>
+[ellipse] to use 2D data<br>
+[serie] to use 1D data<br>
+[file] to use data from loaded mat file<br>
+[station] to use data from station file<br>
+
+<p>
+<a href="#top"><img src="top.png" border=0></a>
+<p>
+
+<a name="under_spect"><font color="#FF0000">[6]</font></a><br>
+[<em>min xlim</em>] [<em>default xlim</em>] [<em>max xlim</em>] xlim controls, <em>min xlim</em> and <em>max xlim</em> are editable<br>
+and can be numbers or the strings <em>start</em> and <em>end</em> (<em>s</em> and <em>e</em> are enough)<br>
+[grids] add gridlines<br>
+[hold on] hold on current plot<br>
+[zoom] zoom on/off<br>
+
+<p>
+<a href="#top"><img src="top.png" border=0></a>
+<p> 
+
+<a name="load"><font color="#FF0000">[7] </font></a>load mat files<br>
+[file] load data in a mat file<br>
+[> plot] plot data of current loaded mat file<br>
+[struc] load mat file with ellipse parameters<br>
+[> plot] plot ellipses of current loaded mat file with ellipse parameters<br>
+<p> <a name="#analysis"><font color="#FF0000">[8]</font></a> analysis<br>
+[FSA] execute Fourier spectral analysis<br>
+[LSF] execute harmonic least squares fit<br>
+[t_tide] execute T_TIDE<br>
+[data] plot data used in current analysis<br>
+[xout] checkbox, if selected when executing LSF of T_TIDE, xout is plotted (xout is the reconstruction of used data by the analysis)<br>
+
+<p>
+<a href="#top"><img src="top.png" border=0></a>
+<p>
+
+<a name="predic"><font color="#FF0000">[9]</font></a> prediction<br>
+[start time] prediction start time, current date by default<br>
+  [end time] end time for prediction, one month after start time, by default<br>
+[time interval] prediction interval in hours, default is 1h<br>
+[predic] executes t_predic (part of T_TIDE toolbox) using data from last analysis (LSF or t_tide)<br>
+
+<p>
+<a href="#top"><img src="top.png" border=0></a>
+<p>
+
+<a name="menu"><font color="#FF0000">[10]</font></a> menu [SpectrHA]<br>
+[current files] current loaded files<br>
+[current files]-->[file] info about loaded data file <br>
+[release]-->[grid] copy grid to a new window <br>
+[release]-->[mask_rho] pcolor(mask_rho) <br>
+[release]-->[lon,lat,mask_rho] pcolor(lon_rho,lat_rho,mask_rho) <br>
+[release]-->[bathy 3d] 3d bathymetry <br>
+[release]-->[spectrum] copy spectrum to a new window <br>
+[release]-->[s-levels (t=0,j)] s-levels vertical slice at lat index j <br>
+z_r values are displayed at itime (configurable, see configuration), depth and ssh are also plotted <br>
+in case of roms_his as stations file, ssh is ssh in the slice, otherwise is ssh in the current station <br>
+[release]-->[s-levels (t=0,i)] s-levels vertical slice at lon index i <br>
+[release]-->[s-levels (t=all)] s-levels vertical slice at current station, time evolution <br>
+[overlay]-->[coastline] load and plot coastline file (mat file with vectors lon and lat) <br>
+[current axis]-->[normal;equal;auto] executes axis normal, equal or auto, in current axis <br>
+[config]-->[LSF] configure LSF, calls edit S_config_LSF (see configuration) <br>
+[config]-->[T_TIDE] configure T_TIDE, calls edit S_config_T_TIDE (see configuration) <br>
+[t_tide str] see last t_tide command executed <br>
+[phases (t_tide)]-->[default; at t=0] use default t_tide (without phase correction) or t_tide with phase correction <br>
+to the beginning of the serie, should be used when no start_time is available when executing t_tide <br>
+
+<p>
+<a href="#top"><img src="top.png" border=0></a>
+
+<p>
+<hr>
+<center>
+&divide;
+<a href="intro.htm">[ home ]</a>
+&divide;
+<a href="mailto:martinho@fis.ua.pt?subject=SpectrHA">[ mail ]</a>
+&divide;
+</center>
+
+
+</body>
+</html>

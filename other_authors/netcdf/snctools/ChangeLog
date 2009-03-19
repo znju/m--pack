@@ -1,0 +1,195 @@
+* Wed May 31 2006 John Evans <john.g.evans.ne@gmail.com> 2.0.22
+- Fixed bad name in nc_padheader documentation.
+- Improved error checking in nc_padheader.
+
+* Wed May 24 2006 John Evans <john.g.evans.ne@gmail.com>  
+- Added nc_padheader to Contents.m
+
+* Tue May 23 2006 John Evans <john.g.evans.ne@gmail.com>  2.0.21
+- Added new m-file, nc_padheader
+
+* Tue Apr 25 2006 John Evans <john.g.evans.ne@gmail.com> 
+- Clean up of several m-files as suggested by mlint.
+
+* Thu Apr 06 2006 John Evans <john.g.evans.ne@gmail.com> 2.0.20
+- nc_varget reverts back to GET_VAR1 for singletons, opendap workaround
+
+* Tue Mar 28 2006 John Evans <john.g.evans.ne@gmail.com> 2.0.19
+- Better error message if OPEN fails in nc_addhist.
+- Better check on rank of input data vs netcdf variable, nc_varput.
+- Malformed sprintf in nc_getall in case of an error.
+
+* Wed Mar 22 2006 John Evans <john.g.evans.ne@gmail.com> 
+- nc_getvarinfo had a bad error message construction
+
+* Fri Mar 17 2006 John Evans <john.g.evans.ne@gmail.com> 
+- nc_addvar now allows numeric Nctype (Brian Powell)
+
+* Thu Mar 09 2006 John Evans <john.g.evans.ne@gmail.com> 
+- Suppressing error message in nc_addhist if no existing history att.
+- Explicit dimensionality check in nc_varput.
+- Removed unused unlimited dimension check in nc_varput.
+
+* Thu Mar 02 2006 John Evans <john.g.evans.ne@gmail.com> 
+- checks in nc_varget for start, count, stride agreeing with the dims
+
+* Tue Mar 01 2006 John Evans <john.g.evans.ne@gmail.com> 
+- nc_varget retrieves singletons using GET_VAR, requires mexnc >= 2.0.17
+
+* Sat Feb 11 2006 John Evans <john.g.evans.ne@gmail.com> 
+- Fixed bad error message in nc_attput in case of unhandled datatype
+
+* Wed Jan 25 2006 John Evans <john.g.evans.ne@gmail.com> 2.0.18
+- Fixed documentation errors in nc_varput, nc_addvar.
+- Removed NEWS file, it wasn't being updated anyway.
+- Revamped the README file.
+
+* Tue Jan 24 2006 John Evans <john.g.evans.ne@gmail.com> 
+- Fixed exception handling issue in nc_varget
+
+* Thu Jan 19 2006 John Evans <john.g.evans.ne@gmail.com> 
+- Changed to formal ChangeLog format.
+- Change 'write' mode to nc_write_mode in nc_addvar.
+
+* Sat Dec 17 2005 John Evans <john.g.evans.ne@gmail.com> 2.0.17
+- The help section for nc_varget was broken, missing a crucial %.
+
+* Fri Oct 28 2005 John Evans <john.g.evans.ne@gmail.com> 2.0.16
+- Fixed up error messages in test suite routine test_nc_attget.m.
+- Renamed nc2mat.m to snc2mat.m, avoids namespace clash with netcdftbx.
+- Renamed the test suite m-file "test_nc2mat.m" to "test_snc2mat.m".
+- Test suite runs on mexnc versions 2.0.{6,9,11,13,14}.
+
+* Thu Aug 04 2005 John Evans <john.g.evans.ne@gmail.com> 2.0.15
+- Where possible, all m-files can now throw exceptions.
+	
+* Thu Jul 21 2005 John Evans <john.g.evans.ne@gmail.com> 2.0.14
+- Removed some more netcdf-2 calls.
+- Removed setops call from nc_varget.
+- nc_varget.m can throw exceptions now.
+- Removed all help statements. 
+- Added some more input argument type checking where needed.
+
+* Wed Jun 22 2005 John Evans <john.g.evans.ne@gmail.com> 2.0.13
+- Removed calls to SETOPTS.  Aiming for no netcdf-2 code.
+- Status checks in nc_attget, nc_attput, checking for zero or not.
+- Precision of attribute values was improved in nc_dump.m. 
+- Fixed error check on open statement in nc_varput.m
+- Fixed help section on nc_info.m.  
+- Added "IsUnlimitedVariable" field to nc_info.m help section.
+- README updates.
+- Added typechecking for ncfile.
+
+* Wed Apr 20 2005 John Evans <johnevans@acm.org> 2.0.12
+- No apparent change, can't figure out what this release was for.
+
+* Thu Apr 14 2005 John Evans <johnevans@acm.org> 2.0.11
+- Added m-file nc_add_dimension.
+- Fixed character datatypes and fill values nc_varget bug.
+- Test suite improvements.
+- Fixed scaling and fill value bug in nc_native_varget.
+- Removed nc_varget_e.m because it really doesn't add much.
+- Minor fixes to nc_getall, nc2mat, nc_dump.  
+
+* Thu Mar 17 2005 John Evans <johnevans@acm.org> 2.0.10
+- Removed nc_write_ts_buffer_endoffset.m from the distribution.
+- Rewrote nc_native_varget so that it uses nc_varget.
+- Added a new test for scaling in test_nc_varput.m
+- Fixed nc_info problem with the OPEN statement.
+- Fixed scaling problem in nc_varput.m
+- nc_addnewrecs needed replacement for nc_getvarnames functionality.
+- Code to check attributes in nc_diff with '-attributes' argument.
+- Added nc_varget_e.m m-file.
+- Removed nc_get_ts_buffer.m
+- Subsumed nc_get_ts_buffer into nc_getbuffer.  
+- Removed nc_get_file_last.
+- Removed nc_varnames.m.
+- Added new m-file, nc_getdiminfo.  Uses code from nc_info.m.
+- Massive rewrite to nc_iscoordvar, makes use of nc_getvarinfo now.
+- Removed nc_istsvar.m.
+- Fixed incompatibility of nc_addvar with nc_info.
+
+* Mon Mar 07 2005 John Evans <johnevans@acm.org> 2.0.9
+- Changed file creation code in nc_varput.m test.
+- Fixed problem with nc_diff.
+- Removed nc_rename.m
+- nc_varrename.m:  cdfid ==> ncid
+- nc_isvar.m:  cdfid ==> ncid, return logic problem
+- Rewrite of nc_add_recs.m.  Got rid of record_variable name input.
+- Added new function nc_addnewrecs, replaces nc_archive_buffer.
+- Rewired nc_archive_buffer to do nothing but call nc_addnewrecs.m
+- Cleaned up the status checks in nc_attget.m.  
+- Added check for unrecognized data type in nc_attget.  
+- Added new return value in nc_attget if attribute is not found.
+- Suppressed the error message in nc_attget.
+- Added the banner for all m-files. 
+- Better error messages for nc_addvar.  Checks for required fields.
+- nc_add_recs changed to netcdf-3 api.
+- Cleaned up the help section in nc_istsvar.m
+- nc_addhist now appends rather than prepends.
+- Added character datasets to nc_varget capability.
+- Removed exceptions from nc2mat
+- Tests for nc_diff, nc_archive_buffer, nc_attget, nc_addvar, nc2mat.
+	
+* Sat Feb 26 2005 John Evans <johnevans@acm.org> 2.0.8
+- Started testing for nc_varput.m
+- Fixed indexing problem in nc_varput, case of "PUT_VAR1".
+- Fixed return status problem with nc_varput.m
+	
+* Fri Feb 25 2005 John Evans <johnevans@acm.org> 2.0.7
+- Added Name CVS tag to all routines.
+- Replaced all remaining calls of ncmex to mexnc.
+
+* Tue Feb 22 2005 John Evans <johnevans@acm.org> 2.0.6
+- Relaxed the same-name limitation in nc_add_recs and nc_archive_buffer
+- Removed all ncmex calls from nc_write_ts_buffer_endoffset.
+- Removed all ncmex calls from nc_varsize.
+- Added nc_isunlimitedvar m-file.
+- Updated nc_varrename.m with mexnc(netcdf-3) routines 
+
+* Wed Jan 19 2005 John Evans <johnevans@acm.org> 2.0.5
+- Added nc_native_varget.m routine.  
+- Removing optional argument in nc_varget that was introduced in 2.0.2
+
+* Fri Jan 14 2005 John Evans <johnevans@acm.org> 2.0.4
+- Added IsUnlimitedVariable flag to nc_getvarinfo.
+- Fixed char datatype problems in nc_varget.
+
+* Wed Jan 12 2005 John Evans <johnevans@acm.org> 2.0.3
+- All mexncdf53 calls changed to mexnc.
+
+* Wed Jan 05 John Evans <johnevans@acm.org> 2.0.2
+- Fixed nc_varput typo for add_offset and scale_factor attributes.
+- Fixed NaN issue with non-floating point datatypes in nc_varput.
+- Optional casting argument for nc_varget.
+
+* Fri Dec 31 John Evans <johnevans@acm.org> 2.0.1
+- Fixed return status problem with nc_varget.m
+
+* Thu Dec 16 John Evans <johnevans@acm.org> 2.0.0
+- Added nc_addhist.
+- Using schar for retrieval of NC_BYTE data.
+- nc_attput, nc_varput, nc_attget, nc_varget modified for netcdf-3
+
+* Sat Nov 27 John Evans <johnevans@acm.org> 1.0.2
+- Return status fix.
+
+* Thu Nov 18 John Evans <johnevans@acm.org> 1.0.1
+- nc_varget was improperly checking for improper data extents. 
+- CVS Id keywords added to the headers of all m-files.
+- nc_info: Changed Attributes to Attribute.
+- nc_info: global attribute structure now initially set to [] 
+- nc_info:  Added "Record_Dimension" boolean to Dimension fields.
+- Removed duplicated code in nc_getvarinfo and nc_get_attribute_struct.
+- nc_info returning [] if mexcdf cannot open the file.
+- nc_dump checking for [] return argument from nc_info
+- Changed nc_dump to reflect DataSetAttributes/Attributes changes.
+- nc_get_ts_buffer rewritten so as to only rely upon snctools itself
+- Fixes to attribute handling in nc_getvarinfo.
+- Fixed singlton variable dimension handling in nc_getvarinfo.
+- Fixed problem with nc_getvarinfo function name.
+- Brought nc_getvarinfo into sync with nc_info
+
+
+* Thu Sep 09 John Evans <johnevans@acm.org> 1.0.0
+- Initial code import.

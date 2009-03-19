@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>SpectrHA, analysis</title>
+<LINK REL="stylesheet" HREF="geral_b.css">
+</head>
+<b>analysis</b>
+<p>
+<font color="#FF0000">#</font>
+Fourier spectral analysis<br>
+- press button [FSA]<br>
+<p>
+<font color="#FF0000">#</font>
+Harmonic least squares fit
+- press button [LSF]<br>
+- when radio button [ellipse] is selected, LSF used 2D data and draws ellipses for the desired frequencies<br>
+- frequencies are choosed in file S_config_LSF.m<br>
+  - Rayleigh criteria is not applied<br>
+  - if performing tidal analysis, the names of tidal constituents can be used 
+  if T_TIDE is installed<br>
+<p>
+<font color="#FF0000">#</font>
+T_TIDE
+- press button [t_tide]<br>
+- similar to LSF, but specific to tidal analysis<br>
+  - T_TIDE toolbox must be installed<br>
+  - if there is no start time associated with serie being analyses, T_TIDE calculated 
+  phases at central time<br>
+to avoid this, select [SpectrHA] >> [phases (t_tide)] >> [t=0]<br>
+- configuration is done in file S_config_T_TIDE.m<br>
+- a part of T_TIDE package is t_predic (tidal prediction); it can be done after a LSF or T_TIDE analysis<br>
+cos it uses the output of this routines; start and end time, as well as dt is choosed in the boxes near [predic] button<br>
+
+<p>
+<hr>
+<center>
+&divide;
+<a href="intro.htm">[ home ]</a>
+&divide;
+<a href="mailto:martinho@fis.ua.pt?subject=SpectrHA">[ mail ]</a>
+&divide;
+</center>
+
+</body>
+</html>

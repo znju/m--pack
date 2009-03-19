@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>NCDView</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<LINK REL="stylesheet" HREF="nept.css">
+<style type="text/css">
+<!--
+.style1 {
+  color: #0000FF;
+  font-weight: normal;
+}
+.edit { color: firebrick}
+.text { color: darkblue}
+
+a.menu{text-decoration:none; color:#000000}
+a.menu:hover{text-decoration: underline; color:#0000FF}
+
+a{text-decoration:none; color:blue}
+a:hover{text-decoration: underline; color:blue}
+-->
+</style>
+</head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" style="border:0px solid green; background-color: #f7f7f7 ">
+
+  <tr>
+    <td width="83%" height="50" align="left">
+      <a href="http://neptuno.fis.ua.pt/~mma/NCDView"><img src="images/ncdview.gif" border=0></a>
+      Matlab GUI for NetCDF visualization
+    </td>
+    <td width="12%" align="right" style="vertical-align:bottom">
+      <!--<span class="text"><small><a href="http://neptuno.fis.ua.pt">neptuno.fis.ua.pt</a></small></span>-->
+    </td>
+    <td width="5%" align="right" style="vertical-align:bottom">
+      <!--<a href="http://neptuno.fis.ua.pt/~mma"><img src="images/neptuno_new_var1.gif" border="0" align="right"></a>-->
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="3" align="center" style="background-color: #C0DFBD; border-bottom: 1px solid green ">
+      <span class="style1">|</span>
+      <a href="ncdview.htm"   class="menu">   intro     </a> <span class="style1">|</span>
+      <a href="gui.htm"       class="menu">   gui       </a> <span class="style1">|</span>
+      <a href="tutorial.htm"  class="menu">   tutorial  </a> <span class="style1">|</span>
+      <a href="snapshots.htm" class="menu">   snapshots </a>
+      <span class="style1">| download |</span>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="3" style="padding:10px ">
+
+
+
+
+
+     NCDView download:<p>
+
+
+<!--
+     <a href="NCDView+.tar.gz">NCDView+.tar.gz</a> (953k)<p>
+
+     this file includes WCL (World Coastline data) inside dir datasets.<br>
+     You can get NCDView and and datasets separately:<br>
+     ps: datasets are needed just if you want to overlay world coasline to your graphics
+     <p>
+
+     <a href="NCDView.tar.gz">NCDView.tar.gz</a> (32k)<br>
+     <a href="datasets.tar.gz">datasets.tar.gz</a> (917k)<br>
+-->
+    <a href="http://neptuno.fis.ua.pt/~mma/NCDView/">NCDView</a>
+
+    <p>
+
+    installation:
+    <div style="width: 500px">
+    <ol style="line-height: 1.7">
+      <li> copy file to $MATLAB/toolbox </li>
+      <li> tar xvfz NCDView.tar.gz (in windows, you may  use winrar)<br>
+           this will create the dir NCDView dir with subdirs config, datasets, files, help, tools and toolsnc </li>
+      <li> add <b>NCDView</b>, <b>tools</b> and <b>toolsnc</b> to  path.<br>
+           <small>
+           Actually you don't need to add tools and toolsnc to path, they are added to path when ncdv starts (as well as
+           the others subdirs),  but specially toolsnc has some functions useful to work with netcdf files, some are not even used by NCDView;
+           check these dirs
+           </small></li>
+      <li> that's all, now just run &gt;&gt; ncdv at matlab prompt<br>
+      <li> be sure you have <a href="http://woodshole.er.usgs.gov/staffpages/cdenham/public_html/MexCDF/nc4ml5.html" target="_blank">
+           NetCDF/Matlab interface</a> </li>
+    </ol>
+    </div>
+
+
+
+   </td>
+  <tr style="height:100px"><td colspan="3"></td></tr>
+  <tr>
+    <td align="left" style="background-color: #C0DFBD; border-top: 1px solid green; padding-left:20px ">
+      <a href=ncdview.htm>home </a> |
+    </td>
+    <td colspan="2" align="right" class="text" style="background-color: #C0DFBD; border-top: 1px solid green; padding-right:20px " nowrap>
+      <small><a href="http://neptuno.fis.ua.pt/%7Emma">MMA</a> , Jun 2004 &nbsp;&nbsp;&nbsp;
+      <a href="mailto:martinho@fis.ua.pt?Subject=NCDView">e-mail</a>
+      </small>
+    </td>
+  </tr>
+
+</table>
+</body>
+</html>
