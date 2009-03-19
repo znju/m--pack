@@ -1,0 +1,5 @@
+* Fri Mar 17 2006 John Evans <john.g.evans.ne@gmail.com> 
+- nc_addvar now allows numeric Nctype.  This change was suggested by
+- Brian Powell, and it allows for more seamless use of nc_addvar and
+- nc_getvarinfo.
+

@@ -1,0 +1,40 @@
+SNCTOOLS
+=======================================================================
+
+Of all the routines in this m-file collection, the most useful (in my
+humble opinion) are
+	
+	1. nc_varget    - reads a netcdf variable
+	2. nc_varput    - writes to a netcdf variable
+	3. nc_attget    - reads a netcdf attribute
+	4. nc_attput    - writes a netcdf attribute
+	5. nc_dump      - prints netcdf metadata
+	6. nc_padheader - pads header section of large netCDF files
+
+There is a subdirectory called "tests" which has routines that test
+the m-files of SNCTOOLS.  You really don't need to worry about this
+unless you are convinced that there is something wrong with one of
+the m-files.  In that case, you can run the test suite by changing
+directories into "tests" and running "test_snctools" from the matlab
+command line.
+
+
+KNOWN ISSUES
+=======================================================================
+
+The test suite will fail when used with opendap builds of mexnc.  I 
+believe the problem is that a netcdf file is not being properly closed
+somewhere in the test suite, but I haven't tracked it down yet.
+
+There will be varying degrees of difficulty in transitioning SNCTOOLS
+to work with upcoming builds of mexnc/netcdf-4 (I won't even attempt
+it with the netcdf toolbox).  Some m-files, like nc_varget, nc_varput,
+nc_attget, nc_attput, and nc_dump will be getting a lot more attention
+from me than others in this matter.
+
+
+Any questions?  Email me.
+
+=======================================================================
+John Evans
+john.g.evans.ne@gmail.com

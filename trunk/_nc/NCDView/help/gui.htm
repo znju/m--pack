@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>NCDView</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<LINK REL="stylesheet" HREF="nept.css">
+<style type="text/css">
+<!--
+.style1 {
+  color: #0000FF;
+  font-weight: normal;
+}
+.edit { color: firebrick}
+.text { color: darkblue}
+
+a.menu{text-decoration:none; color:#000000}
+a.menu:hover{text-decoration: underline; color:#0000FF}
+
+a{text-decoration:none; color:blue}
+a:hover{text-decoration: underline; color:blue}
+-->
+</style>
+</head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" style="border:0px solid green; background-color: #f7f7f7 ">
+
+  <tr>
+    <td width="83%" height="50" align="left">
+      <a href="http://neptuno.fis.ua.pt/~mma/NCDView"><img src="images/ncdview.gif" border=0></a>
+      Matlab GUI for NetCDF visualization
+    </td>
+    <td width="12%" align="right" style="vertical-align:bottom">
+      <!--<span class="text"><small><a href="http://neptuno.fis.ua.pt">neptuno.fis.ua.pt</a></small></span>-->
+    </td>
+    <td width="5%" align="right" style="vertical-align:bottom">
+      <!--<a href="http://neptuno.fis.ua.pt/~mma"><img src="images/neptuno_new_var1.gif" border="0" align="right"></a>-->
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="3" align="center" style="background-color: #C0DFBD; border-bottom: 1px solid green ">
+      <span class="style1">|</span>
+      <a href="ncdview.htm" class="menu">   intro     </a>
+      <span class="style1">| gui |</span>
+      <a href="tutorial.htm" class="menu">  tutorial  </a> <span class="style1">|</span>
+      <a href="snapshots.htm" class="menu"> snapshots </a> <span class="style1">|</span>
+      <a href="download.htm" class="menu">  download  </a> <span class="style1">|</span>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="3" style="padding:10px ">
+
+
+
+
+
+     NCDView GUI:<p>
+     <img src=images/gui_left.gif  align=right border=0 hspace=20px>
+
+     <b>Data Range and Graphics</b><p>
+
+     NCDView is composed by several menus, pushbuttons,... and one axes<br>
+     Let me start by describing this <a href=gui_left3.gif>image at right</a><p>
+
+     First notice that image is divided in four sections.<br>
+     After loading a file and selecting one variable (explained bellow), in the first line of the first section
+     will appear the name of the variable, its scale and offset.<br>
+     In the case  we have:
+     <span class="edit">h(1) x  -1 + 0 </span>;  variable(filenumber) * scale + offset.
+     Variable  is the selected variable from the loaded NetCDF  file number filenumber.<br>
+     Filenumber is increased per each file loaded.<br>
+     Scale is the NetCDF attribute<em>scale_factor</em> (1 if not present);<br>
+     Offset is the NetCDF attribute
+     <em>add_offset</em> (0 if not present).<p>
+
+     The next line (where we  read <span class="text"> 360 280 </span>) appears the size of the variable
+     if it is a N-D arrays, 1 &lt; N &lt; 4; for scalars the value will be shown.<p>
+
+     Then we have four lines with seven buttons each. Each of the four lines correspond to one dimension of the variable.
+     The three buttons in the meddle are the first index, the step and the last index of the dimension.<br>
+     So in this case, if V if the whole variable, it will be extracted the portion:
+     <span class="edit">( 222:20:222 , 1:1:280 , 1:1:1, 1:1:1 ) = (222,:)</span><br>
+     The last button of each line shows the size of the variable. When pressed, the value on it will pass
+     to the last index edit box.<br>
+     The last button of each line show the dimension I, J, K and L. When pressed, the value 1 will  pass to the
+     first index edit box.<br>
+     the pushbuttons <span class="edit">&lt;</span> and <span class="edit">&gt;</span> move the first and last index
+     edit boxes step points backward and forward.
+     <p>
+
+     In the end of this first section there are the checkbox <span class="text">plot on load</span>
+     and the pushbutton <span class="text">display</span>.
+     If <span class="text">plot on load</span> is selected, the variable is plotted automatically when it is loaded.
+      <span class="text">Display</span> always plots the chosen portion of the variable  if this portion is 1-D or 2-D.
+      So, to have <span class="text">plot on load</span> selected is the same as load variable and press
+     <span class="text">display</span> without change any dimension index.
+     <p>
+
+     Then pressing  <span class="edit">&lt;</span> or <span class="edit">&gt;</span> will call <span class="text">display</span> automatically.<br>
+     If you choose the indexes in such way that the extracted portion is a scalar, the value is shown in the second line
+     (where is displayed the size of the variable)
+     <p>
+
+     No, lets see what happens if the extracted portion  is 2-D.<br>
+     In the second section of this images we have the buttons
+     <span class="text">contour</span>, <span class="text">pcolor</span> and <span class="text">surf</span>,
+     pressing each, the corresponding 2-D plot is done. Each of these buttons has associated one checkbox.<br>
+     Pressing <span class="text">display</span> will produce the type of plot which checkbox is selected.
+     After <span class="text">contour</span> we have an edit box where contour values can be introduced. If length of data edited
+     is more than one, then should be contour levels. After contour you can make labels with <span class="text">clabel</span>.<br>
+     After <span class="text">pcolor</span> we have the caxis edit box; two numbers should be used to control caxis.<br>
+     After <span class="text">surf</span> we have the view angle edit box; two numbers should be used to control the view angle.<br>
+     If the checkboxes at the right of caxis and view angle are  selected, the new plots will use these values; if not, the values are updated.
+     <p>
+
+     Next part is about X and Y to in plots. We have four edit boxes; first, the of variable X, Y, the X range and the Y range.<br>
+     In  this case X is <span class="edit">lon_rho(1)</span>. It means variable lon_rho from the file 1.<br>
+     When edited, the corresponding range  (full range) appears in  the X range edit box. However, when <span class="text">display</span>
+     occurs, the range will be corrected to fit the range of the extracted variable.<br>
+     If, however, you do not agree with the range shown, you can edit X and Y  range edit boxes and select the associated checkbox to be sure
+     the range you entered will be used. If everything is ok (X variable exists in the the file, and the range in use is in
+     agreement with variable range) then a xlabel and ylabel is produced in the figure.<br>
+     The aspect of the ranges is, as usual, (istart : istep : iend , ....).<br>
+     To use X and Y, the associated checkbox should be selected.
+     <p>
+
+     In the third section we have the same as previous but for the case of vector data (ie, when the extracted portion of the variable
+     is a vector, so only X is used).<p>
+
+
+     <br>
+
+
+     <b>Loading Files and Variables</b>
+     <p>
+
+     The NCDView GUI starts with three menus. In the menu <em>file</em>, you can load NetCDF files by selecting <em>load</em>.<br>
+     When this is done, several menus will be created according to the size of variables.<br>
+     The last file loaded is the current one until other is selected in the menu <em>file</em> --&gt; <em>files</em>.
+     This will also create/update the variables menus.<p>
+
+     Now, to load a file you just need to select it from the menus.<br>
+     The other method is to edit the variable name in the first edit box (top left corner of the GUI and in the image at right).<br>
+     Example: if you edit <em>bathy</em> you will use the variable bathy from the current file; if you edit <em>bathy(3)</em> you
+     will use the variable bathy from the loaded file number 3.
+     <p>
+     When one variable is chosen its attributes are shown in the listbox shown in the bottom of the image above.<br>
+     Next section explains how to use more than one variable for velocity fields<p>
+
+
+
+    <br>
+
+
+
+    <b>Velocity Fields</b><p>
+
+    If you wanna see velocity fields with arrows, you must load two variables editing then as explained above.<br>
+    Example: I have two files, first with variable uflx (u wind) and vflx (v wind); I load both files and write:
+    <span class=edit>uflx(1),vflx(2)</span> (spaces and not important).<br>
+    Everything happens as if only uflx was loaded - in terms of range, scale, offset, shown attributes - so variables u and v
+    should have same size, scale and offset.<p>
+
+
+    <br>
+
+
+    <b>Menus</b><p>
+    In this section, the menu <em>misc</em> is explained. It is show in the figure bellow<p>
+
+    <img src="images/menu_misc.gif"  align=left>
+    <table style="padding: 20px; border: 0px" border=0 cellspacing=10>
+      <tr>
+        <td width=127 style="vertical-align: top; text-align:left "> 1 - <em>colormap</em> </td>
+        <td width="716"> controls axes colormap</td>
+      </tr>
+
+      <tr>
+        <td width=127 style="vertical-align: top; text-align:left "> 2 - <em>shading</em> </td>
+        <td> controls axes shading (useful for pcolor and surf  plots)</td>
+      </tr>
+
+      <tr>
+        <td width=127 style="vertical-align: top; text-align:left "> 3 - <em>material</em> </td>
+        <td> controls axes material (useful for surf plots)</td>
+      </tr>
+
+      <tr>
+        <td width=127 style="vertical-align: top; text-align:left "> 4 - <em>lighting</em> </td>
+        <td> controls axes light (useful for surf plots)</td>
+      </tr>
+
+      <tr>
+        <td width=127 style="vertical-align: top; text-align:left "> 5 - <em>color contours</em> </td>
+        <td> controls contours colors</td>
+      </tr>
+
+      <tr>
+        <td width=127 style="vertical-align: top; text-align:left "> 6 - <em>axis</em> </td>
+        <td> controls axis: normal, equal, auto</td>
+      </tr>
+
+      <tr>
+        <td width=127 style="vertical-align: top; text-align:left "> 7 - <em>gui size</em> </td>
+        <td> controls GUI size: this may be better than zoom the GUI window, because only
+             the axes will be enlarged, not the uicontrols</td>
+      </tr>
+
+      <tr>
+        <td width=127 style="vertical-align: top; text-align:left "> 8 - <em>gui theme</em> </td>
+        <td> controls the GUI  theme... </td>
+      </tr>
+
+      <tr>
+        <td width=127 style="vertical-align: top; text-align:left "> 9 - <em>fontSize</em> </td>
+        <td> controls the font size of pushbuttons, editboxes, ...</td>
+      </tr>
+
+      <tr>
+        <td width=127 style="vertical-align: top; text-align:left "> 10 - <em>overlay</em> </td>
+        <td> overlay WCL or lon-lat file.<br>
+          WCL is the world coastline obtained from the
+          <a href="http://rimmer.ngdc.noaa.gov/mgg/coast/getcoast.html" target="_blank"> Coastline Extractor</a> site.<br>
+          lon-lat is some mat file with the variables lon and lat.<br>
+          You can also toogle between overlay once and always. In the case of always, a plot of the selected file is done
+          at every display
+        </td>
+      </tr>
+
+      <tr>
+        <td width=127 style="vertical-align: top; text-align:left "> 11 - <em>max var size</em> </td>
+        <td> controls the maximum size of a variable to be plotted. If size is bigger, a question to proceed will be made.<br>
+             This can be useful in the situation: you have one variable with size 1500 x 300 x 300, being the first
+             dimension the time index, and you want to make a pcolor of the variable for t=1 but you press the wrong
+             <span class=edit>&gt;</span> button; then a pcolor of a very big variable would be done, maybe taking some time
+             and maybe without any meaning</td>
+      </tr>
+
+      <tr>
+        <td width=127 style="vertical-align: top; text-align:left "> 8 - <em>set limits</em> </td>
+        <td> fixes the the current xlim, ylim, zlim and DataAspectRatio by putting these values in the edit boxes of the 
+             GUI bottom right corner and selecting the associated checkboxes.<br>
+             These edit boxes are updated at every display, but not when image is zoomed. So imagine, you plot a variable, make a zoom and
+             wanna see the evolution of the zoomed portion... at the new display the axes would acquire the natural size, unless
+             the limits checkboxes are selected.<br>
+             NOTICE: To avoid resize of axes, <em>set limits</em> should be done, always you make a plot with axis equal, I mean, after
+             first plot with axis equal, select <em>set limits</em> and then continue your plots with &gt;, for instance
+ </td>
+      </tr>
+
+
+      </tr>
+
+      <tr>
+        <td width=127 style="vertical-align: top; text-align:left "> 9 - <em>axis &gt;&lt;</em> </td>
+        <td> opens dialog box where you can choose the dimensions for which automatic evolution will happen
+             when <span class=edit>&gt;</span> or <span class=edit>&lt;</span> is pressed</td>
+
+
+
+    </table>
+
+    <p>
+
+    Also is available a uiContextMenu for any vector plot  (including the overlayed WCL or lon-lat data). It is shown below:<br>
+    To use it, click with the mouse right button over the desired line.
+    <p>
+    <img src="images/uicontextmenu.gif" width="165" height="127">
+
+
+
+
+
+
+   </td>
+  <tr style="height:100px"><td colspan="3"></td></tr>
+  <tr>
+    <td align="left" style="background-color: #C0DFBD; border-top: 1px solid green; padding-left:20px ">
+      <a href=ncdview.htm>home </a> |
+      <a href=tutorial.htm>tutorial &gt;&gt; </a>
+    </td>
+    <td colspan="2" align="right" class="text" style="background-color: #C0DFBD; border-top: 1px solid green; padding-right:20px " nowrap>
+      <small><a href="http://neptuno.fis.ua.pt/%7Emma">MMA</a> , Jun 2004 &nbsp;&nbsp;&nbsp;
+      <a href="mailto:martinho@fis.ua.pt?Subject=NCDView">e-mail</a>
+      </small>
+    </td>
+  </tr>
+
+</table>
+</body>
+</html>

@@ -1,0 +1,51 @@
+ 
+	A:link {
+		TEXT-DECORATION: none;
+		color : blue;
+		font-size : 12px;
+	}
+	A:visited {
+		TEXT-DECORATION: none;
+		color : blue;
+		font-size : 12px;
+	}
+	A:hover {
+		TEXT-DECORATION: underline;
+		color : red;
+		font-size : 12px;
+	}
+	body      {
+		font-family: arial;
+		color: Black;
+		font-size : 12px;
+		background-color : White;
+		text-decoration : none;
+		margin-top : 5px;
+	    margin-left : 5px;
+	    margin-right : 5px;
+	}
+	td{
+		color : Black;
+		background-color : #CCCCCC;
+		font-size : 12px;
+		vertical-align : middle;
+		text-decoration : none;
+		width : 70px;
+		text-align: center;		
+	}
+	
+	blockquote{
+	width : 500px;
+	background-color : black;
+	color : white;
+	font-family: monospace;
+	font-size : 12px;
+	}
+	i{
+	font-weight: bold;
+	}
+	hr{
+	line-height: 1px;
+	width: 60%;
+	color: #000000;
+	}

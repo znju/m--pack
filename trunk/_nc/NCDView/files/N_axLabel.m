@@ -1,0 +1,110 @@
+function N_axLabel(varname,filenumber,type);
+%N_axLabel
+%   is part of NCDView (Matlab GUI for NetCDF visualization)
+%
+%   MMA 6-2004, martinho@fis.ua.pt
+%
+%   See also NCDV
+
+% creates axes labels
+
+global H
+
+
+if length(varname) == 2 & iscell(varname) % to use in arrows:
+  filenumberu=filenumber{1};
+  filenumberv=filenumber{2};
+
+  fileu=H.files{filenumberu};
+  filev=H.files{filenumberv};
+
+  varu=varname{1};
+  varv=varname{2};
+
+  % try to find long_name property of u and v:
+  nameu  = [];
+  unitsu = [];
+  namev  = [];
+  unitsv = [];
+  if n_varattexist(fileu,varu,'long_name')
+    nameu  = n_varatt(fileu,varu,'long_name');
+  end
+  if n_varattexist(fileu,varu,'units');
+    unitsu = n_varatt(fileu,varu,'units');
+  end
+
+  if n_varattexist(fileu,varv,'long_name')
+    namev  = n_varatt(filev,varv,'long_name');
+  end
+  if n_varattexist(fileu,varv,'units')
+    unitsv = n_varatt(filev,varv,'units');
+  end
+
+  nameu=['[',num2str(filenumberu),'] ',varu,' --> ',nameu,' (',unitsu,')'];
+  namev=['[',num2str(filenumberv),'] ',varv,' --> ',namev,' (',unitsv,')'];
+
+  % put slice info:
+  range{1} = N_getRange(1);
+  range{2} = N_getRange(2);
+  range{3} = N_getRange(3);
+  range{4} = N_getRange(4);
+  str      = N_sliceLabel(fileu,varu,range);
+  nameu = [nameu,'  ',str];
+  str      = N_sliceLabel(filev,varv,range);
+  %namev = [namev,'  ',str];
+
+
+  namet={nameu,namev};
+  set(H.axes_title,'string',namet);
+  tts = [namet{1},10,namet{2}];
+  set(H.axes_title,'TooltipString',tts);
+  return
+
+end
+
+fname=H.files{filenumber};
+
+lmax=60; % max length of filename string
+subfname = subname(fname,lmax); 
+
+if isempty(varname)
+  name='';
+else
+  % try to find long_name property of x, y and z:
+  name  = [];
+  units = [];
+  if n_varattexist(fname,varname,'long_name')
+    name  = n_varatt(fname,varname,'long_name');
+  end
+  if n_varattexist(fname,varname,'units')
+    units = n_varatt(fname,varname,'units');
+  end
+
+  name=[varname,' --> ',name,' (',units,')'];
+
+  % for title:
+  filename=['[',num2str(filenumber),']  ',subfname];
+  % namet  = {name,filename};
+
+  % include slice info:
+  range{1} = N_getRange(1);
+  range{2} = N_getRange(2);
+  range{3} = N_getRange(3);
+  range{4} = N_getRange(4);
+  str      = N_sliceLabel(fname,varname,range);
+  namet = [name,'  ',str];
+  namet = {namet,filename};
+
+
+  % for xlablel and ylabel:
+  namexy = {['[',num2str(filenumber),']  ',name]};
+end
+
+switch type
+  case 'title'
+    set(H.axes_title,'string',namet);
+  case 'xlabel'
+    xlabel(namexy,'interpreter','none');
+  case 'ylabel'
+    ylabel(namexy,'interpreter','none');
+end

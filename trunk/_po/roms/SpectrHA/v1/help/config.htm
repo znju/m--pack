@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>SpectrHA, configuration</title>
+<LINK REL="stylesheet" HREF="geral_b.css">
+</head>
+<body>
+<b>configuration</b>
+<p> configuration files (dir: SpectrHA/config):
+<p>
+
+<b>S_settings.m</b> <br>
+- main interface colors <br>
+- markers and colors <br>
+- fonts <br>
+- default xlim (default spectrum xlim, to use with the button [default xlim], see gui) <br>
+- default datenum vars (used in prediction) <br>
+- default ellipse color (to use when not specified) <br>
+- default NetCDF file extensions (to use in uigetfile when loading grid and stations file) <br>
+- default log filename (otherwise call spectrha(logname)) <br>
+- default time index when release s_levels (itime) <br>
+
+<p>
+
+<b>S_theme.m</b> <br>
+colors, markers and fonts of other theme (change theme: [SpectrHA]-->[preferences]-->[theme]-->...) <br>
+
+<p>
+
+<b>S_obj_positions.m</b> <br>
+positions of objects in the gui <br>
+
+<p>
+
+<b>S_init_global.m</b> <br>
+initialization of global variables <br>
+
+<p>
+
+<b>set_data.m</b> <br>
+way of get variables, change this if you are not using ROMS NetCDF output, but some other kind of data <br>
+
+<p>
+
+<b>S_get_ncvar.m</b> <br>
+way of load NetCDF variables, change this if you are not using ROMS output <br>
+
+<p>
+
+<b>S_config_LSF.m</b> <br>
+LSF configuration: <br>
+- start and end time index, to use only part of data.<br>
+  This can be usefull if first days are affected by some kind of ramp.<br> 
+- names or frequencies (periods) of tidal constituents to use in LSF <br>
+- colors to use in ellipses <br>
+
+<p>
+
+<b>S_config_T_TIDE.m</b> <br>
+  T_TIDE configuration: <br>
+- start and end time index<br>
+- colors to use in ellipses <br>
+- all t_tide options <br>
+- use or not stations and data file latitude <br>
+- use or not stations and data file start_time <br>
+- t_predic synthesis <br>
+- t_predic latitude <br>
+
+<p>
+<hr>
+<center>
+&divide;
+<a href="intro.htm">[ home ]</a>
+&divide;
+<a href="mailto:martinho@fis.ua.pt?subject=SpectrHA">[ mail ]</a>
+&divide;
+</center>
+
+</body>
+</html>
