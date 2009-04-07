@@ -8,10 +8,10 @@ function cat_anims(files,varargin)
 %   Inputs:
 %      FILES   List of animation files as a cell array
 %      VARARGIN:
-%         anim, output animation filename, default=anim.flc
+%         anim, output animation filename, default=anim_cat.flc
 %         size, size of output anim, default the same as anim 1
 %         fps, frames per second, default the same as anim 1
-%         rm1, remove firts frame of all anims except first; if false
+%         rm1, remove first frame of all anims except first; if false
 %            all frames are used, else, the first frame is removed in
 %            all animations but first. This may be used in case that
 %            frame is already included in the previous file (as last

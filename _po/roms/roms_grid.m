@@ -1,5 +1,5 @@
 function [x,y,h,m]=roms_grid(g,ruvp,varargin)
-%POM_GRID   Get ROMS grid data x, y, h and mask
+%ROMS_GRID   Get ROMS grid data x, y, h and mask
 %
 %   Syntax:
 %      [X,Y,H,M] = ROMS_GRID(FNAME,RUVP,VARARGIN)
