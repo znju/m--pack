@@ -242,6 +242,8 @@ if show_what
   fprintf(1,' --  m_map      -- mapping package (v 1.4), by Rich Pawlowicz\n'          );
   fprintf(1,' --  misc       -- miscellaneous utilities, other authors\n'              );
   fprintf(1,' --  timeplt    -- timeplt from Rich Signell\n'                           );
+  fprintf(1,' --  seawater   -- CSIRO SEAWATER Library (v 2.0.1)\n'                    );
+  fprintf(1,' --  oceans     -- Oceans Toolbox for Matlab\n'                           );
   fprintf(1,' --  data       -- datasets\n'                                            );
 
   fprintf('\n');
@@ -382,6 +384,17 @@ if start_pack | stop_pack
     [base,sep,'other_authors',sep,'timeplt']
   };
 
+  % other authors, seawater
+  dirs_seawater  = {
+    [base,sep,'other_authors',sep,'seawater']
+  };
+
+  % other authors, oceans
+  dirs_oceans  = {
+    [base,sep,'other_authors',sep,'oceans']
+  };
+
+
   if start_pack
     n = 0;
     add={};
@@ -389,86 +402,102 @@ if start_pack | stop_pack
     % add m_files:
     if isequal(toStart,'m_files') | isequal(toStart,'all')
       n=n+1;
-      for i=1:length(dirs_m_files), addpath(dirs_m_files{i});     end
-      add{n} = '  --> adding m_files';
+      str=add_dirs(dirs_m_files);
+      add{n} = ['  --> adding m_files' str];
     end
 
     % add models:
     if isequal(toStart,'models') | isequal(toStart,'all')
       n=n+1;
-      for i=1:length(dirs_models), addpath(dirs_models{i});       end
-      add{n} = '  --> adding roms, pom, occam, pop';
+      str=add_dirs(dirs_models);
+      add{n} = ['  --> adding roms, pom, occam, pop' str];
     end
 
     % add ncdview:
     if isequal(toStart,'ncdview') | isequal(toStart,'all')
       n=n+1;
-      for i=1:length(dirs_ncdview), addpath(dirs_ncdview{i});     end
-      add{n} = '  --> adding ncdview';
+      str=add_dirs(dirs_ncdview);
+      add{n} = ['  --> adding ncdview' str];
     end
 
     % add ncx:
     if isequal(toStart,'ncx') | isequal(toStart,'all')
       n=n+1;
-      for i=1:length(dirs_ncx), addpath(dirs_ncx{i});             end
-      add{n} = '  --> adding ncx';
+      str=add_dirs(dirs_ncx);
+      add{n} = ['  --> adding ncx' str];
     end
 
     % add netcdf:
     if isequal(toStart,'netcdf') | isequal(toStart,'all')
       n=n+1;
-      for i=1:length(dirs_netcdf), addpath(dirs_netcdf{i});       end
-      add{n} = '  --> adding netcdf';
+      str=add_dirs(dirs_netcdf);
+      add{n} = ['  --> adding netcdf' str];
     end
 
     % add seagrid:
     if isequal(toStart,'seagrid') | isequal(toStart,'all')
       n=n+1;
-      for i=1:length(dirs_seagrid), addpath(dirs_seagrid{i});     end
-      add{n} = '  --> adding seagrid';
+      str=add_dirs(dirs_seagrid);
+      add{n} = ['  --> adding seagrid' str];
     end
 
     % add tidal_ellipse:
     if isequal(toStart,'tidal_ell') | isequal(toStart,'all')
       n=n+1;
-      for i=1:length(dirs_tidal_ell), addpath(dirs_tidal_ell{i}); end
-      add{n} = '  --> adding tidal_ellipse';
+      str=add_dirs(dirs_tidal_ell);
+      add{n} = ['  --> adding tidal_ellipse' str];
     end
 
     % add t_tide:
     if isequal(toStart,'t_tide') | isequal(toStart,'all')
       n=n+1;
-      for i=1:length(dirs_t_tide), addpath(dirs_t_tide{i});       end
-      add{n} = '  --> adding t_tide';
+      str=add_dirs(dirs_t_tide);
+      add{n} = ['  --> adding t_tide' str];
     end
 
     % add m_map:
     if isequal(toStart,'m_map') | isequal(toStart,'all')
       n=n+1;
-      for i=1:length(dirs_m_map), addpath(dirs_m_map{i});         end
-      add{n} = '  --> adding m_map';
+      str=add_dirs(dirs_m_map);
+      add{n} = ['  --> adding m_map' str];
     end
 
     % add misc:
     if isequal(toStart,'misc') | isequal(toStart,'all')
       n=n+1;
-      for i=1:length(dirs_misc), addpath(dirs_misc{i});           end
-      add{n} = '  --> adding misc';
+      str=add_dirs(dirs_misc);
+      add{n} = ['  --> adding misc' str];
     end
 
     % add timeplt:
     if isequal(toStart,'timeplt') | isequal(toStart,'all')
       n=n+1;
-      for i=1:length(dirs_timeplt), addpath(dirs_timeplt{i});           end
-      add{n} = '  --> adding timeplt';
+      str=add_dirs(dirs_timeplt);
+      add{n} = ['  --> adding timeplt' str];
     end
 
+    % add seawater:
+    if isequal(toStart,'seawater') | isequal(toStart,'all')
+      n=n+1;
+      str=add_dirs(dirs_seawater);
+      add{n} = ['  --> adding seawater' str];
+    end
+
+    % add oceans:
+    if isequal(toStart,'oceans') | isequal(toStart,'all')
+      n=n+1;
+      str=add_dirs(dirs_oceans);
+      add{n} = ['  --> adding oceans' str];
+    end
+
+
+% SEA, OCEANS
 
     % add data:
     if isequal(toStart,'data') | isequal(toStart,'all')
       n=n+1;
-      for i=1:length(dirs_data), addpath(dirs_data{i});           end
-      add{n} = '  --> adding data';
+      str=add_dirs(dirs_data);
+      add{n} = ['  --> adding data' str];
     end
 
     disp(' ');
@@ -491,85 +520,99 @@ if start_pack | stop_pack
     % remove m_files:
     if isequal(toStop,'m_files') | isequal(toStop,'all')
       n = n+1;
-      for i=1:length(dirs_m_files), rmpath(dirs_m_files{i});     end
-      remove{n} = '  --> removed m_files';
+      str=rm_dirs(dirs_m_files);
+      remove{n} = ['  --> removed m_files' str];
     end
 
     % remove models:
     if isequal(toStop,'models') | isequal(toStop,'all')
       n = n+1;
-      for i=1:length(dirs_models), rmpath(dirs_models{i});       end
-      remove{n} = '  --> removed roms, pom, occam, pop';
+      str=rm_dirs(dirs_models);
+      remove{n} = ['  --> removed roms, pom, occam, pop' str];
     end
 
     % remove ncdview:
     if isequal(toStop,'ncdview') | isequal(toStop,'all')
       n = n+1;
-      for i=1:length(dirs_ncdview), rmpath(dirs_ncdview{i});     end
-      remove{n} = '  --> removed ncdview';
+      str=rm_dirs(dirs_ncdview);
+      remove{n} = ['  --> removed ncdview' str];
     end
 
     % remove ncx:
     if isequal(toStop,'ncx') | isequal(toStop,'all')
       n = n+1;
-      for i=1:length(dirs_ncx), rmpath(dirs_ncx{i});             end
-      remove{n} = '  --> removed ncx';
+      str=rm_dirs(dirs_ncx);
+      remove{n} = ['  --> removed ncx' str];
     end
 
     % remove netcdf:
     if isequal(toStop,'netcdf') | isequal(toStop,'all')
       n = n+1;
-      for i=1:length(dirs_netcdf), rmpath(dirs_netcdf{i});       end
-      remove{n} = '  --> removed netcdf';
+      str=rm_dirs(dirs_netcdf);
+      remove{n} = ['  --> removed netcdf' str];
     end
 
     % remove seagrid:
     if isequal(toStop,'seagrid') | isequal(toStop,'all')
       n = n+1;
-      for i=1:length(dirs_seagrid), rmpath(dirs_seagrid{i});     end
-      remove{n} = '  --> removed seagrid';
+      str=rm_dirs(dirs_seagrid);
+      remove{n} = ['  --> removed seagrid' str];
     end
 
     % remove tida_ellipse
     if isequal(toStop,'tidal_ell') | isequal(toStop,'all')
       n = n+1;
-      for i=1:length(dirs_tidal_ell), rmpath(dirs_tidal_ell{i}); end
-      remove{n} = '  --> removed tidal_ellipse';
+      str=rm_dirs(dirs_tidal_ell);
+      remove{n} = ['  --> removed tidal_ellipse' str];
     end
 
     % remove t_tide:
     if isequal(toStop,'t_tide') | isequal(toStop,'all')
       n = n+1;
-      for i=1:length(dirs_t_tide), rmpath(dirs_t_tide{i});       end
-      remove{n} = '  --> removed t_tide';
+      str=rm_dirs(dirs_t_tide);
+      remove{n} = ['  --> removed t_tide' str];
     end
 
     % remove m_map:
     if isequal(toStop,'m_map') | isequal(toStop,'all')
       n = n+1;
-      for i=1:length(dirs_m_map), rmpath(dirs_m_map{i});         end
-      remove{n} = '  --> removed m_map';
+      str=rm_dirs(dirs_m_map);
+      remove{n} = ['  --> removed m_map' str];
     end
 
     % remove misc:
     if isequal(toStop,'misc') | isequal(toStop,'all')
       n = n+1;
-      for i=1:length(dirs_misc), rmpath(dirs_misc{i});           end
-      remove{n} = '  --> removed misc';
+      str=rm_dirs(dirs_misc);
+      remove{n} = ['  --> removed misc' str];
     end
 
     % remove timeplt:
     if isequal(toStop,'timeplt') | isequal(toStop,'all')
       n = n+1;
-      for i=1:length(dirs_timeplt), rmpath(dirs_timeplt{i});           end
-      remove{n} = '  --> removed timeplt';
+      str=rm_dirs(dirs_timeplt);
+      remove{n} = ['  --> removed timeplt' str];
+    end
+
+    % remove seawater:
+    if isequal(toStop,'seawater') | isequal(toStop,'all')
+      n = n+1;
+      str=rm_dirs(dirs_seawater);
+      remove{n} = ['  --> removed seawater' str];
+    end
+
+    % remove oceans:
+    if isequal(toStop,'oceans') | isequal(toStop,'all')
+      n = n+1;
+      str=rm_dirs(dirs_oceans);
+      remove{n} = ['  --> removed oceans' str];
     end
 
     % remove data:
     if isequal(toStop,'data') | isequal(toStop,'all')
       n = n+1;
-      for i=1:length(dirs_data), rmpath(dirs_data{i});           end
-      remove{n} = '  --> removed data';
+      str=rm_dirs(dirs_data);
+      remove{n} = ['  --> removed data' str];
     end
 
     disp(' ');
@@ -595,3 +638,30 @@ if isequal(computer,'PCWIN') | isequal(computer,'PCWIN64')
 else
   [status,result] = unix(str);
 end
+
+function str=add_dirs(dirs)
+incDeprec=' (inc deprecated stuff)';
+str='';
+for i=1:length(dirs),
+  addpath(dirs{i});
+
+  deprecatedFolder=fullfile(dirs{i},'_deprecated');
+  if exist(deprecatedFolder)==7
+    addpath(deprecatedFolder);
+    str=incDeprec;
+  end
+end
+
+function str=rm_dirs(dirs)
+incDeprec=' (inc deprecated stuff)';
+str='';
+for i=1:length(dirs),
+  rmpath(dirs{i});
+
+  deprecatedFolder=fullfile(dirs{i},'_deprecated');
+  if exist(deprecatedFolder)==7
+    rmpath(deprecatedFolder);
+    str=incDeprec;
+  end
+end
+

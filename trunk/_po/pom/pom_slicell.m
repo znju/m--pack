@@ -1,5 +1,5 @@
 function [X,Y,Z,V] = pom_slicell(fname,varname,X,Y,time)
-%POM_SLICEI   Make POM slice along any path
+%POM_SLICELL   Make POM slice along any path
 %
 %   Syntax:
 %      [X,Y,Z,V]  = POM_SLICELL(FILE,VARNAME,LON,LAT,T)

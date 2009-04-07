@@ -45,31 +45,36 @@ if nargin < 2
   return
 end
 
-unix(['unflick ',anim,' anim_1']);
+unix(['unflick ',anim,' anim_K']);
 
-lista_1=ls(['-1 anim_1.*',]);
-
-a=find(lista_1=='.');
-if length(a) == 1
-  l=length(lista_1)
-else
-  l=a(2)-a(1);
+%%%%%lista_1=ls(['-1 anim_1.*',]);
+d=dir('anim_K.*')
+for i=1:length(d)
+  name_1{i}=d(i).name;
 end
 
-N=length(a);
-for i=1:N
-  name_1(i,:)=lista_1(1+l*(i-1):l*i-1);
-end
+%%a=find(lista_1=='.');
+%%if length(a) == 1
+%%  l=length(lista_1)
+%%else
+%%  l=a(2)-a(1);
+%%end
+%
+%N=length(a);
+%%for i=1:N
+%%  name_1(i,:)=lista_1(1+l*(i-1):l*i-1);
+%%end
 
-for i=1:N
-  disp(['# resizing ', name_1(i,:)]);
-  unix(['convert -geometry ',geometry,' ', name_1(i,:),' ',name_1(i,:)]);
+for i=1:length(name_1)
+  disp(['# resizing ', name_1{i}]);
+  %unix(['convert -geometry ',geometry,' ', name_1(i,:),' ',name_1(i,:)]);
+  unix(['convert -depth 8 -geometry ',geometry,' ', name_1{i},' ',name_1{i}]);
 end
 
 speed=1000/fps;
 s=['-s ',num2str(speed)];
-unix(['ls -1 anim_1.* > lista']);
+unix(['ls -1 anim_K.* > lista']);
 unix(['ppm2fli ',g,' ',s,'  -N lista ',anim_file]);
 
-unix(['rm anim_1.*']);
+unix(['rm anim_K.*']);
 unix(['rm lista']);
