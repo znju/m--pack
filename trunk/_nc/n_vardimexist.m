@@ -26,9 +26,6 @@ function out =  n_vardimexist(file,varname,dim)
 %   Department of Physics
 %   University of Aveiro, Portugal
 
-
-fprintf(1,'\n:: %s is DEPRECATED, use %s instead\n',mfilename,'n_dimexist');
-
 out=[];
 
 if nargin < 3
@@ -36,7 +33,7 @@ if nargin < 3
   return
 end
 
-dims = n_vardim(file,varname);
+dims = n_vardims(file,varname);
 
 if isempty(dims)
   return

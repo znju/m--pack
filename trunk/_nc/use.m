@@ -89,7 +89,7 @@ if ~n_varexist(file,varname)
 end
 
 if nargin > 2
-  dims = n_vardim(file,varname);
+  dims = n_vardims(file,varname);
   if isempty(dims)
     errorstr=sprintf(':: variable %s has unknown dimension',varname);
     return

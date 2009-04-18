@@ -302,6 +302,7 @@ if start_pack | stop_pack
     [base,sep,'_po',sep,'roms',sep,'roms_rivers'],
     [base,sep,'_po',sep,'roms',sep,'roms_slice'],
     [base,sep,'_po',sep,'roms',sep,'roms_tides'],
+    [base,sep,'_po',sep,'roms',sep,'roms_tides',sep,'corr_rtools'],
     [base,sep,'_po',sep,'roms',sep,'SpectrHA',sep,'v1',sep,'config'],
     [base,sep,'_po',sep,'roms',sep,'SpectrHA',sep,'v1',sep,'files'],
     [base,sep,'_po',sep,'roms',sep,'SpectrHA',sep,'v1',sep,'help'],
