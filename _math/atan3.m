@@ -17,5 +17,4 @@ function teta = atan3(y,x)
 %   University of Aveiro, Portugal
 
 teta=atan2(y,x)*180/pi;
-I=find(teta<0);
-teta(I)=teta(I)+360;
+teta(teta<0)=teta(teta<0)+360;
