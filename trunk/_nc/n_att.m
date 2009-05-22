@@ -1,5 +1,5 @@
-function attrib = n_fileatt(file,attname)
-%N_FILEATT   Get global attributes of NetCDF file
+function attrib = n_att(file,attname)
+%N_ATT   Get global attributes of NetCDF file
 %   Recommended standard attributes:
 %   (from the NetCDF User's Guide)
 %   - title
@@ -7,7 +7,7 @@ function attrib = n_fileatt(file,attname)
 %   - Conventions
 %
 %   Syntax:
-%      ATTRIB = N_FILEATT(FILE,ATTNAME)
+%      ATTRIB = N_ATT(FILE,ATTNAME)
 %
 %   Inputs:
 %      FILE      NetCDF file
@@ -26,17 +26,16 @@ function attrib = n_fileatt(file,attname)
 %      NetCDF interface for Matlab
 %
 %   Example:
-%      attribs = n_fileatt('file.nc');
-%      attrib  = n_fileatt('file.nc','title');
+%      attribs = n_att('file.nc');
+%      attrib  = n_att('file.nc','title');
 %
-%   MMA 25-6-2004, martinho@fis.ua.pt
+%   MMA 25-6-2004, mma@odyle.net
 %
-%   See also N_FILEATTEXIST, N_VARATT
+%   See also N_ATTEXIST, N_VARATT
 
-%   Department of Physics
-%   University of Aveiro, Portugal
+%   CESAM, Aveiro, Portugal
 
-%   07-02-2005, improved
+%   22-04-2009 - renamed from n_fileatt
 
 attrib=[];
 

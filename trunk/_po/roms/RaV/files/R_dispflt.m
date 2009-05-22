@@ -144,8 +144,8 @@ if ~dotrack
 end
 range_time = [ti,':',dt,':',te];
 
-range = ['(',range_time,',',range_floats,')'];
-s   = n_varsize(range(2:end-1));
+range   = ['(',range_time,',',range_floats,')'];
+[tmp,s] = range_dims(range(2:end-1));
 
 if prod(s) > 100 * 1000
   question = 'var size is quite big! wanna procced?';

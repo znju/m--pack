@@ -9,7 +9,7 @@ function [V,D,len]=roms_tvd(file)
 
 
 varnames=n_filevars(file);
-dims=n_filedim(file);
+dims=n_dim(file);
 dimnames=dims.name;
 names={'time','scrum_time','ocean_time','ftime'};
 V=[];
@@ -19,7 +19,7 @@ for i=1:length(names)
   if ismember(names{i},dimnames), D=names{i}; end
 end
 
-if D, len=n_filedim(file,D);
+if D, len=n_dim(file,D);
 else, len=[];
 end
 

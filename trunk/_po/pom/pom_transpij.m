@@ -41,7 +41,7 @@ if strcmpi(type,'x')
   else
     [x,y,h,m] = pom_grid(grd,'r');
   end
-  indMax=n_filedim(grd,dim_name);
+  indMax=n_dim(grd,dim_name);
   if ind==indMax, ind=ind-1; end
   x=x(:,ind);
   y=y(:,ind);
@@ -55,7 +55,7 @@ elseif strcmpi(type,'y')
   else
     [x,y,h,m] = pom_grid(grd,'r');
   end
-  indMax=n_filedim(grd,dim_name);
+  indMax=n_dim(grd,dim_name);
   if ind==indMax, ind=ind-1; end
   x=x(ind,:);
   y=y(ind,:);
@@ -63,7 +63,7 @@ elseif strcmpi(type,'y')
   m=m(ind,:);
 end
 
-N=n_vardim(files{1},uv_name,'z'); N=N-1;
+N=n_dim(files{1},uv_name,'z'); N=N-1;
 
 % calc dx:
 [dx,xtmp]=ll_dx(x,y,'halfdxi',0,'halfdxe',0);

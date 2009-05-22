@@ -63,7 +63,7 @@ end
 ang=use(grd,'angle')*180/pi;
 [eta,xi]=size(hg);
 
-Noc=n_filedim(files{1},'DEPTH');
+Noc=n_dim(files{1},'DEPTH');
 D=repmat(nan,[length(files) Noc eta xi]);
 for n=1:length(files)
   fname=files{n};
@@ -125,7 +125,7 @@ for n=1:length(files)
   end
 
   % interp occam data to new grid but same depths:
-  Noc=n_filedim(fname,'DEPTH');
+  Noc=n_dim(fname,'DEPTH');
 
   TEMP = repmat(nan,[Noc eta xi]);
   SALT = repmat(nan,[Noc eta xi]);

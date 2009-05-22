@@ -34,7 +34,7 @@ if nargin < 2
   return
 end
 
-dims = n_filedim(file);
+dims = n_dim(file);
 
 if isempty(dims)
   return

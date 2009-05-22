@@ -68,7 +68,7 @@ end
 hr=[];
 hu=[];
 
-N=n_filedim(g,'depth_t');
+N=n_dim(g,'depth_t');
 Mr=ones([N size(maskr)]);
 Mu=ones([N size(masku)]);
 

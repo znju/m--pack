@@ -49,8 +49,8 @@ v = 'theta_s';
 if n_varexist(file,v)
   theta_s = use(file,v);
   theta_s_source = 'variable';
-elseif  n_fileattexist(file,v)
-  theta_s = n_fileatt(file,v);
+elseif  n_attexist(file,v)
+  theta_s = n_att(file,v);
   theta_s_source = 'file attribute';
 else
   theta_s = [];
@@ -61,8 +61,8 @@ v = 'theta_b';
 if n_varexist(file,v)
   theta_b = use(file,v);
   theta_b_source = 'variable';
-elseif  n_fileattexist(file,v)
-  theta_b = n_fileatt(file,v);
+elseif  n_attexist(file,v)
+  theta_b = n_att(file,v);
   theta_b_source = 'file attribute';
 else
   theta_b = [];
@@ -77,8 +77,8 @@ hc_source = 'not found';
 if n_varexist(file,v)
   hc = use(file,v);
   hc_source = 'variable';
-elseif  n_fileattexist(file,v)
-  hc = n_fileatt(file,v);
+elseif  n_attexist(file,v)
+  hc = n_att(file,v);
   hc_source = 'file attribute';
 else
 
@@ -92,8 +92,8 @@ else
   v = 'Tcline';
   if n_varexist(file,v)
     Tcline = use(file,v);
-  elseif  n_fileattexist(file,v)
-    Tcline = n_fileatt(file,v);
+  elseif  n_attexist(file,v)
+    Tcline = n_att(file,v);
   end
 
   if ~isempty(hmin) & ~isempty(Tcline)
@@ -106,17 +106,17 @@ end
 % n:
 % as value of file dimension N or s_rho;
 % as length of variable sc_r or as file global attribute sc_r
-if n_filedimexist(file,'N')
-  n = n_filedim(file,'N');
+if n_dimexist(file,'N')
+  n = n_dim(file,'N');
   n_source = 'file dimension N';
-elseif n_filedimexist(file,'s_rho')
-  n = n_filedim(file,'s_rho');
+elseif n_dimexist(file,'s_rho')
+  n = n_dim(file,'s_rho');
   n_source = 'file dimension s_rho';
 elseif n_varexist(file,'sc_r')
   n = length(use(file,'sc_r'));
   n_source = 'length of variable sc_r';
-elseif n_fileattexist(file,'sc_r')
-  n = n_fileatt(file,'sc_r');
+elseif n_attexist(file,'sc_r')
+  n = n_att(file,'sc_r');
   n_source = 'file attribute sc_r';
 else
   n = [];

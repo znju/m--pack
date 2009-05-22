@@ -39,7 +39,7 @@ end
 
 % load if number of dims = 1 or 2
 range=[range_I,',',range_J,',',range_K,',',range_L];
-n = n_vararraydim(range);
+[n,tmp] = range_dims(range);
 
 if n > 2
   v=[];
@@ -49,7 +49,7 @@ end
 %-------------------- dealing with big vars:
 % let me not load vars bigger then... 300x300, or at least ask the user:
 evalc('sizeMax=H.maxvarsize;','sizeMax=300*300;');
-s=n_varsize(range);
+[tmp,s]=range_dims(range);
 if prod(s) > sizeMax
   question = 'var size is quite big! wanna procced?';
   size_str = sprintf('[  %g  x  %g  x  %g  x  %g  ] = %g',s,prod(s));

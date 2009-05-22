@@ -42,7 +42,7 @@ dim_k='depth_t';
 z_name='depth_t';
 zw_name='w_dep';
 
-N=n_filedim(fname,dim_k);
+N=n_dim(fname,dim_k);
 z=use(fname,z_name);
 
 % equal to occam_slice from here !

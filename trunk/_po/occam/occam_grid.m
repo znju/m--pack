@@ -46,7 +46,7 @@ dw=use(g,'DEPTH_EDGES')*0.01; %cm to m
 hr=[];
 hu=[];
 
-N=n_filedim(g,'DEPTH');
+N=n_dim(g,'DEPTH');
 Mr=ones([N size(maskr)]);
 Mu=ones([N size(masku)]);
 for i=1:m

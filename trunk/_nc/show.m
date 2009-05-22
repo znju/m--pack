@@ -173,7 +173,7 @@ if show_att
     end
   end
 
-  %  n_fileatt(fname);
+  %  n_att(fname);
   fprintf(fid,'\n');
 end
 
@@ -200,7 +200,7 @@ if show_dim
     fprintf(fid,format,strn(i,:),rtrim(strl(i,:)));
   end
 
-  %  n_filedim(fname);
+  %  n_dim(fname);
   fprintf(fid,'\n');
 end
 

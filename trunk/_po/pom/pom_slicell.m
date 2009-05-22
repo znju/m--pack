@@ -64,8 +64,8 @@ else
   [x,y,h,m]=pom_grid(fname,'r');
 end
 
-T   = n_filedim(fname,'time');
-S   = n_filedim(fname,'z');
+T   = n_dim(fname,'time');
+S   = n_dim(fname,'z');
 if ~ismember(varname,Wvars), S=S-1; end
 
 if time > T | time <=0

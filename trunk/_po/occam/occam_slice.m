@@ -43,7 +43,7 @@ end
 dim_k='DEPTH';
 z_name='DEPTH';
 
-N=n_filedim(fname,dim_k);
+N=n_dim(fname,dim_k);
 z=use(fname,z_name)*0.01;
 
 if isequal(type,'lon')

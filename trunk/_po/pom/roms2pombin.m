@@ -77,10 +77,10 @@ end
 % zz(end)=bottom mask
 % names: TANDS_01.bin, TANDS_02.bin, ...
 
-T = n_filedim(clm,'tclm_time');
-L = n_filedim(clm,'xi_rho');
-M = n_filedim(clm,'eta_rho');
-K = n_filedim(clm,'s_rho');
+T = n_dim(clm,'tclm_time');
+L = n_dim(clm,'xi_rho');
+M = n_dim(clm,'eta_rho');
+K = n_dim(clm,'s_rho');
 
 for i=1:T
   folder=[baseFolder filesep folder_ts filesep];

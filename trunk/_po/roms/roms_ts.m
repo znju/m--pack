@@ -102,7 +102,7 @@ end
 % station:
 % --------------------------------------------------------------------
 isstation = 0;
-if n_filedimexist(file,'station') | n_filedimexist(file,'stanum') , isstation  = 1; end
+if n_dimexist(file,'station') | n_dimexist(file,'stanum') , isstation  = 1; end
 if isstation & ~set_station
   disp('# istation not definned (file is a stations file) ');
   return

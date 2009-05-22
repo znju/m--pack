@@ -37,6 +37,8 @@ function list = tiff2ppm(options,tif,ppm);
 %   07-07-2004 - Some modifications
 %   18-07-2005 - Enable TIF as cell array
 
+fprintf(1,'\n:: %s is DEPRECATED, use %s instead\n',mfilename,'convert');
+
 list = [];
 if nargin < 3
   ppm='ppm';

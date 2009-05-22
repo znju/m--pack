@@ -1,80 +1,62 @@
-function resize_anim(anim,geometry,g,fps)
+function anim_file=resize_anim(anim,varargin)
 %RESIZE_ANIM   Resize FLI/FLC animation
+%   More than resize, any option of ANIM_FLI can be used, like crop
+%   for instance.
 %
 %   Syntax:
-%      RESIZE_ANIM(ANIM,GEOMETRY,G,FPS)
+%      RES = RESIZE_ANIM(ANIM,VARARGIN)
 %
 %   Inputs:
-%      ANIM       FLI/FLC animations to join (side by side)
-%      GEOMETRY   Convert geometry [ <num>% <WxH>% ]
-%      G          Size of final anim [ <width x height> {<none>} ]
-%      FPS        Frames per second of final animation [ 5 ]
+%      ANIM       FLI/FLC animations to change
+%      VARARGIN:
+%         out, name, output animation name, by default, if ANIM is
+%           anim.flc, RES will be anim_resized.flc
+%         Any variable arguments of ANIM_FLI, currently:
+%           fps, frames per second, default is 5
+%           crop, px to crop at top, bottom, right, left [0 0 0 0]
+%           resize, resize percentage, default=100% ie, no resize
+%           options, any ppm2fli options
 %
-%   Result:
-%      anim_resized.flc
+%   Output:
+%      RES   Anim created, same as out, if provided as input argument
 %
-%   Comments:
-%      ppm2fli, unflick and convert need to be installed. Runs on UNIX
-%      like machines.
-%      If there is no easy way to know GEOMETRY you may extract one
-%      frame with unflick:
-%      unflick -b 1 -n 1 anim.flc img
+%   Examples:
+%     res=resize_anim('myanim.flc','crop',[20 0 0 0], 'resize',70)
+%     % will crop 20 px at top and resize 70%; res will be
+%     % myanim_resized.flc
 %
-%   Example:
-%      resize_anim('anim.flc','70%','600x300',5)
+%     res=resize_anim('myanim.flc','resize',80,'out','new_anim.flc')
+%     % will resize 80% creating the animation RES='new_anim.flc'
 %
-%   MMA 16-7-2004, martinho@fis.ua.pt
+%   MMA 21-04-2009, mma@odyle.net
+%   fully rewritten from original version of 16-07-2004
 %
-%   See also APPEND_ANIM
+%   See also ANIM_FLI, CAT_ANIMS, APPEND_ANIMS
 
-%   Department of Physics
-%   University of Aveiro, Portugal
+[p,name,ext]=fileparts(anim);
+anim_file=fullfile(p,[name '_resized' ext]);
 
-anim_file='anim_resized.flc';
-
-if nargin < 4
-  fps=5;
-end
-if nargin < 3
-  g='';
-else
- g=['-g ',g];
-end
-if nargin < 2
-  disp('# nothing to do...');
-  return
+vin=varargin;
+for i=1:length(vin)
+  if isequal(vin{i},'out')
+    anim_file=vin{end+1};
+  end
 end
 
-unix(['unflick ',anim,' anim_K']);
+% extract fli images:
+tmp=tempname;
+[status,res]=system(['unflick  ' anim ' ' tmp]);
 
-%%%%%lista_1=ls(['-1 anim_1.*',]);
-d=dir('anim_K.*')
+d=dir([tmp '.*']);
+names=cell(length(d),1);
 for i=1:length(d)
-  name_1{i}=d(i).name;
+  names{i}=[tempdir d(i).name];
 end
 
-%%a=find(lista_1=='.');
-%%if length(a) == 1
-%%  l=length(lista_1)
-%%else
-%%  l=a(2)-a(1);
-%%end
-%
-%N=length(a);
-%%for i=1:N
-%%  name_1(i,:)=lista_1(1+l*(i-1):l*i-1);
-%%end
+% create resized fli:
+anim_fli(names,anim_file,varargin{:});
 
-for i=1:length(name_1)
-  disp(['# resizing ', name_1{i}]);
-  %unix(['convert -geometry ',geometry,' ', name_1(i,:),' ',name_1(i,:)]);
-  unix(['convert -depth 8 -geometry ',geometry,' ', name_1{i},' ',name_1{i}]);
+% delete tmp fli images:
+for i=1:length(names)
+  delete(names{i})
 end
-
-speed=1000/fps;
-s=['-s ',num2str(speed)];
-unix(['ls -1 anim_K.* > lista']);
-unix(['ppm2fli ',g,' ',s,'  -N lista ',anim_file]);
-
-unix(['rm anim_K.*']);
-unix(['rm lista']);

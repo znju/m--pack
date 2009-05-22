@@ -1,76 +1,59 @@
-function attrib = n_varatt(file,varname,attname)
-%N_VARATT   Get attributes of NetCDF variable
-%   Recommended standard attributes for variables:
+function attrib = n_fileatt(file,attname)
+%N_FILEATT   Get global attributes of NetCDF file
+%   Recommended standard attributes:
 %   (from the NetCDF User's Guide)
-%   - units
-%   - long_name
-%   - valid_min
-%   - valid_max
-%   - valid range
-%   - scale factor
-%   - add_offset
-%   - _FillValue
-%   - missing_value
-%   - signedness
-%   - FORTRAN_format
+%   - title
+%   - history
+%   - Conventions
 %
 %   Syntax:
-%      ATTRIB = N_VARATT(FILE,VARNAME,ATTNAME)
+%      ATTRIB = N_FILEATT(FILE,ATTNAME)
 %
 %   Inputs:
 %      FILE      NetCDF file
-%      VARNAME   variable
-%      ATTNAME   attribute [<none>]
+%      ATTNAME   Attribute [<none>]
 %
 %   Output:
-%     ATTRIB   NetCDF variable attribute value if ATTNAME is
-%              specified.
-%              If not, ATTRIB will be a structure with all the
-%              variable attributes name and value.
-%              ATTRIB will be empty if the attribute ATTNAME is not
-%              found, if the variable VARNAME is not found or if there
-%              is an error in the file.
-%              Without output and ATTNAME arguments the result is
-%              printed.
+%      ATTRIB   NetCDF file attribute value if ATTNAME is specified
+%               If not, ATTRIB will be a structure with all the file
+%               attributes name and value.
+%               ATTRIB will be empty if the attribute ATTNAME is not
+%               found, or if there is an error in the file.
+%               Without output and ATTNAME arguments the result is
+%               printed.
 %
 %   Requirement:
 %      NetCDF interface for Matlab
 %
-%   Examples:
-%      attribs = n_varatt('file.nc','varname');
-%      attrib  = n_varatt('file.nc','varname','units')
+%   Example:
+%      attribs = n_fileatt('file.nc');
+%      attrib  = n_fileatt('file.nc','title');
 %
 %   MMA 25-6-2004, martinho@fis.ua.pt
 %
-%   See also N_VARATTEXIST, N_FILEATT
+%   See also N_FILEATTEXIST, N_VARATT
 
 %   Department of Physics
 %   University of Aveiro, Portugal
 
-%   07-02-2005 - Improved
+%   07-02-2005, improved
+
+fprintf(1,'\n:: %s is DEPRECATED, use %s instead\n',mfilename,'n_att');
 
 attrib=[];
 
-if nargin < 2
-  disp('# arguments required');
+if nargin == 0
+  disp('# file required');
   return
 end
 
-ncquiet;
 nc=netcdf(file);
 
 if isempty(nc)
   return
 end
 
-% check varname
-if n_varexist(file,varname)
-  a=att(nc{varname});
-else
-  disp(['# variable ',varname,' not found']);
-  close(nc);
-  return
-end
+a=att(nc);
 
 for i=1:length(a)
     b=a{i};
@@ -80,7 +63,7 @@ end
 
 close(nc);
 
-if nargin == 3 % look for attributen ATTNAME:
+if nargin == 2 % look for attributen ATTNAME:
   found = [];
   for i=1:length(attrib.name)
     if isequal(attrib.name{i},attname)
@@ -91,13 +74,13 @@ if nargin == 3 % look for attributen ATTNAME:
 
   attrib = found;
   if isempty(attrib)
-    disp(['# attribute ',attname,' not found in variable ',varname]);
+    disp(['# attribute ',attname,' not found']);
   end
 end
 
 % show values if no output argument:
-if nargout == 0 & nargin < 3
-  fprintf('\n Attributes in variable %s from NetCDF file\n %s\n\n',varname,file);
+if nargout == 0 & nargin < 2
+  fprintf('\n Attributes in NetCDF file\n %s\n\n',file);
   strn = '';
   strl = '';
   for i=1:length(attrib.name)

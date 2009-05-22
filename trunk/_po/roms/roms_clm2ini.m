@@ -24,7 +24,7 @@ title   = 'Roms ini file';
 clobber = 'clobber';
 newini  = 1;
 quiet   = 0;
-grd     = n_fileatt(clm,'grd_file');
+grd     = n_att(clm,'grd_file');
 
 vin=varargin;
 for i=1:length(vin)

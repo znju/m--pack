@@ -46,7 +46,7 @@ elseif length(times) == 2
 elseif length(times) == 1
   time_start    = times(1);
   time_interval = 1;
-  time_end      = n_filedim(file,'ftime');
+  time_end      = n_dim(file,'ftime');
 end
 
 if length(floats) == 3
@@ -60,7 +60,7 @@ elseif length(floats) == 2
 elseif length(floats) == 1
   float_start    = floats(1);
   float_interval = 1;
-  float_end      = n_filedim(file,'drifter');
+  float_end      = n_dim(file,'drifter');
 end
 
 theAxes   = [];

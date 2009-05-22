@@ -48,6 +48,8 @@ function final_name=get_tiff(T,image_name,format,options,convert_format,convert_
 %   07-07-2004 - Some modifications
 %   06-07-2005 - Added output IMG
 
+fprintf(1,'\n:: %s is DEPRECATED, use %s instead\n',mfilename,'savefig');
+
 final_name = [];
 if nargin < 6
   convert_opts ='';

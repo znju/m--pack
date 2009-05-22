@@ -34,8 +34,8 @@ function tidal_apply_date(ftidal,date,ndays,grd)
 % University of Aveiro, Portugal
 
 if nargin <4
-  if n_fileattexist(ftidal,'grd_file')
-    grd = n_fileatt(ftidal,'grd_file');
+  if n_attexist(ftidal,'grd_file')
+    grd = n_att(ftidal,'grd_file');
   else
     error(':: provide the grid filename (not found in attribute grd_file');
   end

@@ -63,11 +63,11 @@ end
 
 is3d=n_vardimexist(fname,varname,'z');
 
-T   = n_filedim(fname,'time');
-S   = n_filedim(fname,'z');
+T   = n_dim(fname,'time');
+S   = n_dim(fname,'z');
 Nw  = S;
 Nr  = S-1;
-Ind = n_filedim(fname,indDim);
+Ind = n_dim(fname,indDim);
 
 if ind > Ind | ind <=0
   fprintf(1,'» ind = %g exceeds %s dimension (%g)\n',ind,indDim,Ind);

@@ -102,8 +102,8 @@ if ~isequal(tag,dataTag)
     tdays = sprintf('%4.2f days',tdays);
     strt = sprintf('%3d',t);
     str_title    = [varname ,' -- time = ',strt,' = ',tdays,' -- ',str_type,' = ',num2str(i)];
-    if n_fileattexist(file,'title')
-      tit = n_fileatt(file,'title');
+    if n_attexist(file,'title')
+      tit = n_att(file,'title');
       str_title = [tit,' -- ',str_title];
     end
     % store:

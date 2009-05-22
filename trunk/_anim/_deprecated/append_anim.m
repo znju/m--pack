@@ -35,6 +35,8 @@ function append_anim(anim1,anim2,geometry,g,fps,type)
 
 %   16-07-2004 - Added TYPE argument
 
+fprintf(1,'\n:: %s is DEPRECATED, use %s instead\n',mfilename,'append_anims');
+
 anim_file='anim_ap.flc';
 
 if nargin < 6

@@ -28,7 +28,7 @@ v=squeeze(v);
 v=v*scale+offset;
 
 
-n=n_vararraydim(size(u));
+[n,tmp]=range_dims(size(u));
 [x,y]=N_setxy(fileu,varu,n,size(u));
 if n == 1
   if isempty(x),  x = zeros(size(u)); end
@@ -38,7 +38,8 @@ if n == 1
   u = reshape(u,length(u),1);
   v = reshape(v,length(v),1);
 elseif n == 2
-  if n_vararraydim(size(x)) == 1
+  [adims,tmp]=range_dims(size(x))
+  if adims == 1
     [x,y]=meshgrid(x,y);
   end
 end

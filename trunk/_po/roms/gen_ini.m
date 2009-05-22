@@ -34,7 +34,7 @@ time=srctime(t1);
 % create ini NetCDF file: --------------------------------------------
 gridfile   = src;
 parentfile = src;
-title=n_fileatt(src,'title');
+title=n_att(src,'title');
 [theta_s,theta_b,hc,N]=s_params(src);
 Tcline=hc;
 clobber='clobber';

@@ -74,7 +74,7 @@ date_mjd=mjd(Ymin,Mmin,Dmin);
 [pf,pu,t0,phase_mkB]=egbert_correct(date_mjd,hour,minute,sec,comps);
 t0=t0-24*mjd(Yorig,Morig,Dorig);
 correc_amp=pf;
-correc_phase=-phase_mkB-pu+360*t0./period;
+correc_phase=-phase_mkB-pu+360*t0./period(:)';
 
 % apply corrections:
 if length(period)==1

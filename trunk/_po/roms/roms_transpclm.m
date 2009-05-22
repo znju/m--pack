@@ -16,7 +16,7 @@ function [Tb,tot] = roms_transpclm(grd,clm)
 %   Dep. Earth Physics, UFBA, Salvador, Bahia, Brasil
 
 [theta_s,theta_b,hc,N]=s_params(clm);
-Times=n_filedim(clm,'zeta_time');
+Times=n_dim(clm,'zeta_time');
 Tb={};
 
 atuv=1;

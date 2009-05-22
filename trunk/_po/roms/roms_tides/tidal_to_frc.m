@@ -17,11 +17,11 @@ function tidal_to_frc(ftide,ffrc)
 
 nc=netcdf(ffrc,'w');
 
-nc.grd_file    = n_fileatt(ftide,'grd_file');
-nc.components  = n_fileatt(ftide,'components');
-nc.tidal_start = n_fileatt(ftide,'tidal_start');
+nc.grd_file    = n_att(ftide,'grd_file');
+nc.components  = n_att(ftide,'components');
+nc.tidal_start = n_att(ftide,'tidal_start');
 
-nc('tide_period')=n_filedim(ftide,'tide_period');
+nc('tide_period')=n_dim(ftide,'tide_period');
 
 nc{'tide_period'} = ncdouble('tide_period');
 nc{'tide_period'}.long_name = ncchar('Tide angular period');

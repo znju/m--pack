@@ -70,8 +70,8 @@ nc.components = ncchar(tidal_constituents);
 nc.history    = ncchar(['FORCING file, ',datestr(now,0)]);
 
 % Dimensions:
-nc('xi_rho')      = n_filedim(grid,'xi_rho');
-nc('eta_rho')     = n_filedim(grid,'eta_rho');;
+nc('xi_rho')      = n_dim(grid,'xi_rho');
+nc('eta_rho')     = n_dim(grid,'eta_rho');;
 nc('tide_period') = n_constituents;
 
 % Variables and attributes:

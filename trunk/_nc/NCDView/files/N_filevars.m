@@ -47,7 +47,7 @@ for i=1:nvars
   cont3=0;
   cont4=0;
 
-  n = n_vararraydim(fname,Name);
+  n = n_varndims(fname,Name);
 
   if n == -1
     set(H.menu_ED,'visible','on');

@@ -57,10 +57,10 @@ nc.user = user;
 
 
 % dimensions:
-nc('xi_u')     = n_filedim(grdname,'xi_u');
-nc('xi_rho')   = n_filedim(grdname,'xi_rho');
-nc('eta_v')    = n_filedim(grdname,'eta_v');
-nc('eta_rho')  = n_filedim(grdname,'eta_rho');
+nc('xi_u')     = n_dim(grdname,'xi_u');
+nc('xi_rho')   = n_dim(grdname,'xi_rho');
+nc('eta_v')    = n_dim(grdname,'eta_v');
+nc('eta_rho')  = n_dim(grdname,'eta_rho');
 nc('s_rho')    = s_rho;
 nc('bry_time') = 0;
 
