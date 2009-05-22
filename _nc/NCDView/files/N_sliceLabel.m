@@ -11,7 +11,7 @@ function str = N_sliceLabel(fname,varname,range)
 % bust still unfinished... there is a bug in date calculation ?!
 
 slice=[];
-dims  = n_vardim(fname,varname);
+dims  = n_vardims(fname,varname);
 sz    = n_varsize(fname,varname);
 
 C = 'IJKL';
@@ -19,7 +19,7 @@ C = 'IJKL';
 for i=1:length(dims.name)
 
 
-  ds=n_varsize(range{i});
+  [tmp,ds]=range_dims(range{i});
   if ds ==1 & sz(i) ~=1
     % get units:
     value = str2num(range{i});
@@ -33,7 +33,7 @@ for i=1:length(dims.name)
 
     % deal with dates:
 
-    if n_varexist(fname,dims.name{i}) & n_vararraydim(fname,dims.name{i}) == 1 & ~isempty(findstr(lower(sunits),'since'))
+    if n_varexist(fname,dims.name{i}) & n_varndims(fname,dims.name{i}) == 1 & ~isempty(findstr(lower(sunits),'since'))
       valdim = use(fname,dims.name{i});
       Tvalue  = valdim(value);
 

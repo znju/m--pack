@@ -58,8 +58,8 @@ else
   [x,y,h,m]=pom_grid(fname,'r');
 end
 
-T=n_filedim(fname,'time');
-S=n_filedim(fname,'z');
+T=n_dim(fname,'time');
+S=n_dim(fname,'z');
 
 is3d=n_vardimexist(fname,varname,'z');
 

@@ -87,8 +87,8 @@ function m_pack(varargin)
 %   07-2008 - v 2.2
 
 % about m_pack version:
-this_version = '2.2';
-version_date = 'jul 2008';
+this_version = 'svn';
+version_date = 'from jul 2008';
 site         = 'http://www.odyle.net/mma/';
 m_pack_dir   = 'archive/m_pack/';
 

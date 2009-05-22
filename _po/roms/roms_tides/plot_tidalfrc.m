@@ -116,11 +116,11 @@ end
 
 if isequal(action,'load')
   TFP.fname =name(netcdf);
-  TFP.type       = n_fileatt(TFP.fname,'type');
-  TFP.title      = n_fileatt(TFP.fname,'title');
-  TFP.grd_file   = n_fileatt(TFP.fname,'grd_file');
-  TFP.components = n_fileatt(TFP.fname,'components');
-  TFP.history    = n_fileatt(TFP.fname,'history');
+  TFP.type       = n_att(TFP.fname,'type');
+  TFP.title      = n_att(TFP.fname,'title');
+  TFP.grd_file   = n_att(TFP.fname,'grd_file');
+  TFP.components = n_att(TFP.fname,'components');
+  TFP.history    = n_att(TFP.fname,'history');
 
   set(TFP.filestr,  'string',TFP.fname);
   set(TFP.typestr,  'string',TFP.type);
@@ -129,7 +129,7 @@ if isequal(action,'load')
   set(TFP.compstr,  'string',TFP.components);
   set(TFP.histstr,  'string',TFP.history);
 
-  TFP.n_components = n_filedim(TFP.fname,'tide_period');
+  TFP.n_components = n_dim(TFP.fname,'tide_period');
 
   set(TFP.t,'string',['1 of ',num2str(TFP.n_components)]);
 end

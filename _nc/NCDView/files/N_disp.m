@@ -64,7 +64,7 @@ v=v*scale+offset;
 %---------------------------------------------------------------------
 % set X and Y:
 %---------------------------------------------------------------------
-n=n_vararraydim(size(v));
+[n,tmp]=range_dims(size(v));
 % n = 0 --> single value
 % n = 1 --> vector, 1-D case
 % n = 2 --> matrix, 2-D case

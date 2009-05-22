@@ -53,9 +53,9 @@ end
 files={};
 if ismember(type,{'grid','all'})
   % about grid files, first, check if file is a grid file:
-  type=n_fileatt(file,'type');
+  type=n_att(file,'type');
   if isempty(type)
-    type=n_fileatt(file,'title');
+    type=n_att(file,'title');
   end
   if ~isempty(findstr(lower(type),'grid')) % then, this is a grid file
     files=[files,get_files(file,pathstr)];
@@ -76,7 +76,7 @@ varargout{1}=files;
 function files=get_files(file,attname,pathstr)
 files={};
 if nargin > 2
-  filename=n_fileatt(file,attname);
+  filename=n_att(file,attname);
   if isempty(filename)
     return
   end

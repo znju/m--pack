@@ -51,11 +51,11 @@ else
   [x,y]=pom_grid(fname,'r');
 end
 
-T   = n_filedim(fname,'time');
-Nr  = n_filedim(fname,'z')-1;
-Nw  = n_filedim(fname,'z');
-Xi  = n_filedim(fname,'x');
-Eta = n_filedim(fname,'y');
+T   = n_dim(fname,'time');
+Nr  = n_dim(fname,'z')-1;
+Nw  = n_dim(fname,'z');
+Xi  = n_dim(fname,'x');
+Eta = n_dim(fname,'y');
 
 if time > T | time <=0
   fprintf(1,'» time = %g exceeds time dimension (%g)\n',time,T);

@@ -14,9 +14,9 @@ function [U,V,x,y] = occam_uvbar(fname)
 %   MMA 12-06-2008, mma@odyle.net
 %   Dep. Earth Physics, UFBA, Salvador, Bahia, Brasil
 
-xi  = n_filedim(fname,'LONGITUDE_U');
-eta = n_filedim(fname,'LATITUDE_U');
-n   = n_filedim(fname,'DEPTH');
+xi  = n_dim(fname,'LONGITUDE_U');
+eta = n_dim(fname,'LATITUDE_U');
+n   = n_dim(fname,'DEPTH');
 
 u=use(fname,'U_VELOCITY__MEAN_')*0.01;
 v=use(fname,'V_VELOCITY__MEAN_')*0.01;

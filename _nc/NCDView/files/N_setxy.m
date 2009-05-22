@@ -63,8 +63,8 @@ if n==2
       rangex1='1:1';rangex2='1:1';rangex3='1:1';rangex4='1:1';
       rangey1='1:1';rangey2='1:1';rangey3='1:1';rangey4='1:1';
 
-      ndx = n_vararraydim(xfname,X);
-      ndy = n_vararraydim(yfname,Y);
+      ndx = n_varndims(xfname,X);
+      ndy = n_varndims(yfname,Y);
       dx  = n_varsize(xfname,X);
       dy  = n_varsize(yfname,Y);
       dv  = n_varsize(fname,varname);
@@ -150,7 +150,7 @@ if n == 1
 
       rangex1='1:1';rangex2='1:1';rangex3='1:1';rangex4='1:1';
 
-      ndx = n_vararraydim(xfname,X);
+      ndx = n_varndims(xfname,X);
       dx  = n_varsize(xfname,X);
       dv  = n_varsize(fname,varname);
 

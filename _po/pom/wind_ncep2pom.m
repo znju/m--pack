@@ -54,7 +54,7 @@ latv=use(fv,'lat');
 vwnd=use(fv,'vwnd','time',ncep_times);
 
 if isequal(ncep_times,':')
-  times=n_filedim(fu,'time');
+  times=n_dim(fu,'time');
 else
   times=length(eval(ncep_times));
 end

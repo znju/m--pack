@@ -118,8 +118,8 @@ isXi_psi = n_vardimexist(file,varname,'xi_psi');
 isEta_v  = n_vardimexist(file,varname,'eta_v');
 isEta_psi= n_vardimexist(file,varname,'eta_psi');
 
-LenS_rho = n_filedim(file,'s_rho');
-LenS_w   = n_filedim(file,'s_w');
+LenS_rho = n_dim(file,'s_rho');
+LenS_w   = n_dim(file,'s_w');
 
 % best way to test z comp.:
 if ~(isS_rho | isS_w)
@@ -141,7 +141,7 @@ if ~n_vardimexist(file,varname,dimTime)
   dimTime='time';
 end
 
-nTimes   = n_vardim(file,varname,dimTime);
+nTimes   = n_dim(file,varname,dimTime);
 if nTimes>1
   if nargin < 4, disp('» bad number of arguments, t is required');
     close(nc);

@@ -52,7 +52,7 @@ if isequal(varname,'-- select --') | isequal(varname,'no var')
 end
 
 % find dims:
-dim=n_vardim(file,varname);
+dim=n_vardims(file,varname);
 dimNames = dim.name;
 dimLens  = dim.length;
 

@@ -111,7 +111,7 @@ end
 % --------------------------------------------------------------------
 % get dimensions/check input data/set variable extraction (dimsvSTR):
 % --------------------------------------------------------------------
-dims = n_vardim(file,varname);
+dims = n_vardims(file,varname);
 if isempty(dims)
   fprintf(1,'» variable %s has unknown dimension',varname);
   close(nc);
@@ -207,7 +207,7 @@ for d = 1:length(dimsv)
 end
 dimsvSTR = [dimsvSTR(1:end-1),')'];
 
-n=n_vararraydim(dimsvSTR(2:end-1));
+[n,tmp]=range_dims(dimsvSTR(2:end-1));
 if n ~= 2
   fprintf(1,'» variable extracted is not a 2-d array, n = %g',n);
   close(nc)

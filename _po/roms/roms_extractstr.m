@@ -21,7 +21,7 @@ function [str,errorstr,n] = roms_extractstr(file,varname,varargin)
 %      STR   The extraction string
 %      ERR   In case of an error, like indice too big, an error string
 %            is created
-%      N     Range (STR) dimension, obtained by N_VARARRAYDIM(STR)
+%      N     Range (STR) dimension, obtained by RANGE_DIMS(STR)
 %
 %   Examples:
 %      file = 'ocean_sta.nc'
@@ -33,7 +33,7 @@ function [str,errorstr,n] = roms_extractstr(file,varname,varargin)
 %
 %   MMA 3-2-2005, martinho@fis.ua.pt
 %
-%   See also RUSE, USE, N_VARARRAYDIM
+%   See also RUSE, USE, RANGE_DIMS
 
 %   Department of Physics
 %   University of Aveiro, Portugal
@@ -69,7 +69,7 @@ end
 % --------------------------------------------------------------------
 % get dimensions and set extraction string:
 % --------------------------------------------------------------------
-dims = n_vardim(file,varname);
+dims = n_vardims(file,varname);
 if isempty(dims)
   errorstr=sprintf('» variable %s has unknown dimension',varname);
   return
@@ -238,5 +238,5 @@ dimsvSTR  = [dimsvSTR(1:end-1), ')'];
 if ~isempty(errorstr)
   dimsvSTR = [];
 end
-n    = n_vararraydim(dimsvSTR);
+[n,tmp]    = range_dims(dimsvSTR);
 str  = dimsvSTR;

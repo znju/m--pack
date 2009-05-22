@@ -147,7 +147,7 @@ end
 % station:
 % --------------------------------------------------------------------
 isstation = 0;
-if n_filedimexist(file,'station') | n_filedimexist(file,'stanum') , isstation  = 1; end
+if n_dimexist(file,'station') | n_dimexist(file,'stanum') , isstation  = 1; end
 if isstation & ~set_station
   disp('# istation not definned (file is a stations file) ');
   return
@@ -190,9 +190,9 @@ end
 
 str = '';
 if set_time
-  if     n_fileattexist(file,'ftime'),      tdim='ftime';
-  elseif n_fileattexist(file,'ocean_time'), tdim='ocean_time';
-  elseif n_fileattexist(file,'ocean_time'), tdim='ocean_time';
+  if     n_attexist(file,'ftime'),      tdim='ftime';
+  elseif n_attexist(file,'ocean_time'), tdim='ocean_time';
+  elseif n_attexist(file,'ocean_time'), tdim='ocean_time';
 end
 %  elseif ocean_time'), tvar = 'ocean_time';
   if isstr(itime),    str = [str,',''time'',''',    itime,''''                             ];

@@ -108,8 +108,8 @@ if isequal(what,'sta')
   % show number of s-lev at K:
   k   = H.ROMS.grid.k;
   kcb = H.ROMS.grid.kcb;
-  if n_filedimexist(fname,'s_rho');
-    set(k,'string',n_filedim(fname,'s_rho'));
+  if n_dimexist(fname,'s_rho');
+    set(k,'string',n_dim(fname,'s_rho'));
     % also select it:
     R_slicecb('kcb')
   end
@@ -159,9 +159,9 @@ if isequal(what,'grid') | isequal(what,'his')
   k      = H.ROMS.grid.k;
 
   % get tcline:
-  if     n_varexist(fname,'Tcline'),     TCLINE = use(fname,'Tcline');
-  elseif n_fileattexist(fname,'Tcline'), TCLINE = n_fileatt(fname,'Tcline');
-  else                                   TCLINE = [];
+  if     n_varexist(fname,'Tcline'), TCLINE = use(fname,'Tcline');
+  elseif n_attexist(fname,'Tcline'), TCLINE = n_att(fname,'Tcline');
+  else                               TCLINE = [];
   end
                         set(hmin,   'string',HMIN);
   if ~isempty(TCLINE),  set(tcline, 'string',TCLINE); end

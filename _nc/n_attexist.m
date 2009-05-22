@@ -1,8 +1,8 @@
-function out =  n_fileattexist(file,attname)
-%N_FILEATTEXIST   Check if NetCDF file attribute exists
+function out =  n_attexist(file,attname)
+%N_ATTEXIST   Check if NetCDF file attribute exists
 %
 %   Syntax:
-%      OUT = N_FILEATTEXIST(FILE,VARNAME,ATTNAME)
+%      OUT = N_ATTEXIST(FILE,VARNAME,ATTNAME)
 %
 %   Inputs:
 %      FILE      NetCDF file
@@ -15,14 +15,15 @@ function out =  n_fileattexist(file,attname)
 %      NetCDF interface for Matlab
 %
 %   Example:
-%      out = n_fileattexist('file.nc','units')
+%      out = n_attexist('file.nc','units')
 %
-%   MMA 7-2-2005, martinho@fis.ua.pt
+%   MMA 7-2-2005, mma@odyle.net
 %
-%   See also N_FILEATT, N_VAREATT, N_VAREATTEXIST
+%   See also N_ATT, N_VAREATT, N_VAREATTEXIST
 
-%   Department of Physics
-%   University of Aveiro, Portugal
+%   CESAM, Aveiro, Portugal
+
+%   22-04-2009 - renamed from n_fileeattexist
 
 out=[];
 
@@ -31,7 +32,7 @@ if nargin < 2
   return
 end
 
-attrib = n_fileatt(file);
+attrib = n_att(file);
 
 if isempty(attrib)
   return

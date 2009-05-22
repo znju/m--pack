@@ -1,4 +1,4 @@
-function thedim = n_filedim(file,dimname)
+function thedim = n_dim(file,dimname)
 %N_DIM   Get dimensions of NetCDF file
 %   Returns the dimension(s) (name and length) of a NetCDF file.
 %

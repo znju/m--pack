@@ -37,6 +37,8 @@ function d = n_vararraydim(file,varname)
 
 %   07-02-2005 - Improved
 
+fprintf(1,'\n:: %s is DEPRECATED, use %s instead\n',mfilename,'n_varndims or range_dims');
+
 d  = [];
 
 if nargin == 1 & isstr(file) % then using range

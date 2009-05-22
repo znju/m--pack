@@ -38,7 +38,7 @@ V  = [];
 
 v = use(fname,vname);
 is3d=ndims(v)==3;
-n=n_filedim(fname,'DEPTH');
+n=n_dim(fname,'DEPTH');
 if ~is3d
  n=1;
 end

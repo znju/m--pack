@@ -35,6 +35,8 @@ function ppm2fli(ppmfiles,anim_file,fps,size,options);
 %   07-07-2004 - Some modifications
 %   18-07-2005 - Enable PPM_FILES as cell array
 
+fprintf(1,'\n:: %s is DEPRECATED, use %s instead\n',mfilename,'anim_fli');
+
 if nargin < 5
   options=' ';
 end

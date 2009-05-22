@@ -1,39 +1,39 @@
-function out =  n_varattexist(file,varname,attname)
-%N_VARATTEXIST   Check if NetCDF variable attribute exists
+function out =  n_fileattexist(file,attname)
+%N_FILEATTEXIST   Check if NetCDF file attribute exists
 %
 %   Syntax:
-%      OUT = N_VARATTEXIST(FILE,VARNAME,ATTNAME)
+%      OUT = N_FILEATTEXIST(FILE,VARNAME,ATTNAME)
 %
 %   Inputs:
 %      FILE      NetCDF file
-%      VARNAME   Variable
 %      ATTNAME   Attribute name
 %
 %   Output:
-%      OUT   1 = yes; 0 = no; [] = error in file or if VARNAME not
-%            found
+%      OUT   1 = yes; 0 = no; [] = error in file
 %
 %   Requirement:
 %      NetCDF interface for Matlab
 %
 %   Example:
-%      out = n_varattexist('file.nc','temp','units')
+%      out = n_fileattexist('file.nc','units')
 %
 %   MMA 7-2-2005, martinho@fis.ua.pt
 %
-%   See also N_VARATT, N_FILEATT, N_FILEATTEXIST
+%   See also N_FILEATT, N_VAREATT, N_VAREATTEXIST
 
 %   Department of Physics
 %   University of Aveiro, Portugal
 
+fprintf(1,'\n:: %s is DEPRECATED, use %s instead\n',mfilename,'n_attexist');
+
 out=[];
 
-if nargin < 3
+if nargin < 2
   disp('# arguments required');
   return
 end
 
-attrib = n_varatt(file,varname);
+attrib = n_fileatt(file);
 
 if isempty(attrib)
   return

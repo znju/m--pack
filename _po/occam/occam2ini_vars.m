@@ -109,7 +109,7 @@ else
 end
 
 % interp occam data to new grid but same depths:
-Noc=n_filedim(fname,'DEPTH');
+Noc=n_dim(fname,'DEPTH');
 
 TEMP = repmat(nan,[Noc eta xi]);
 SALT = repmat(nan,[Noc eta xi]);

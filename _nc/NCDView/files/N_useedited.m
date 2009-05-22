@@ -26,7 +26,7 @@ if isempty(fname)
   return
 end
 
-n = n_vararraydim(fname,Name);
+n = n_varndims(fname,Name);
 if isequal(n,-1)
   cb=['N_use(''ED'',','''',Name,''',',num2str(N),')'];
 elseif isequal(n,0)

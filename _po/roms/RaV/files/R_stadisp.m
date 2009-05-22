@@ -55,7 +55,7 @@ ista = str2num(tmp{1});
 jsta = str2num(tmp{2});
 
 isstation = 0;
-if n_filedimexist(fname,'station') | n_filedimexist(fname,'stanum')
+if n_dimexist(fname,'station') | n_dimexist(fname,'stanum')
   isstation = 1;
 end
 

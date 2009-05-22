@@ -61,7 +61,7 @@ else
   v = use(fname,vname);
 end
 is3d=ndims(v)==3;
-n=n_filedim(fname,'depth_t');
+n=n_dim(fname,'depth_t');
 if ~is3d
  n=1;
 end

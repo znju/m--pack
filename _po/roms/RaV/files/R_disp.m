@@ -429,7 +429,8 @@ if is3d
   eval('set(srf_main,''FaceLighting'',''none'')','');
 
   % show mask:
-  if n_vararraydim(size(m)) == 1 % means will plot onli in slice i, j, ...
+  [adims,tmp]=range_dims(size(m))
+  if adims == 1 % means will plot onli in slice i, j, ...
     i = m <= 0.5;
     plot3(xm(i),ym(i),0*m(i),'r+')
   end

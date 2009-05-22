@@ -63,7 +63,7 @@ lat=use(fSE,'lat');
 se=use(fSE,'shtfl','time',ncep_times);
 
 if isequal(ncep_times,':')
-  times=n_filedim(fSW,'time');
+  times=n_dim(fSW,'time');
 else
   times=length(eval(ncep_times));
 end

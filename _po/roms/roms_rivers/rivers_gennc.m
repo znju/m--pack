@@ -79,8 +79,8 @@ nc.grd_file = gridname;
 % --------------------------------------------------------------------
 % dimensions:
 % --------------------------------------------------------------------
-nxi     = n_filedim(gridname,'xi_rho');
-neta    = n_filedim(gridname,'eta_rho');
+nxi     = n_dim(gridname,'xi_rho');
+neta    = n_dim(gridname,'eta_rho');
 nrivers = rivers.nrivers;
 
 nc('xi_rho')  = nxi;
