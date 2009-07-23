@@ -642,27 +642,46 @@ end
 
 function str=add_dirs(dirs)
 incDeprec=' (inc deprecated stuff)';
-str='';
+incDevel =' (inc devel stuff)';
+str1='';
+str2='';
 for i=1:length(dirs),
   addpath(dirs{i});
 
   deprecatedFolder=fullfile(dirs{i},'_deprecated');
   if exist(deprecatedFolder)==7
     addpath(deprecatedFolder);
-    str=incDeprec;
+    str1=incDeprec;
+  end
+
+  develFolder=fullfile(dirs{i},'_devel');
+  if exist(develFolder)==7
+    addpath(develFolder);
+    str2=incDevel;
   end
 end
+str=[str1 str2];
+
 
 function str=rm_dirs(dirs)
 incDeprec=' (inc deprecated stuff)';
-str='';
+incDevel =' (inc devel stuff)';
+str1='';
+str2='';
 for i=1:length(dirs),
   rmpath(dirs{i});
 
   deprecatedFolder=fullfile(dirs{i},'_deprecated');
   if exist(deprecatedFolder)==7
     rmpath(deprecatedFolder);
-    str=incDeprec;
+    str1=incDeprec;
+  end
+
+  develFolder=fullfile(dirs{i},'_devel');
+  if exist(develFolder)==7
+    rmpath(develFolder);
+    str2=incDevel;
   end
 end
+str=[str1 str2];
 

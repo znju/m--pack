@@ -34,6 +34,7 @@ function varargout = wind_rose(D,F,varargin)
 %       -iflip, flip the intensities as they go outward radially, ie,
 %                highest values are placed nearest the origin [{0} 1]
 %       -inorm, normalize intensities, means all angles will have 100%
+%       -incout, if 0, data outside di limits will not be used [0 {1}]
 %
 %   Output:
 %      HANDLES   Handles of all lines, fills, texts
@@ -73,8 +74,8 @@ function varargout = wind_rose(D,F,varargin)
 %   08-05-2008 - Bug fix (bar at dir=0 could be incorrect in some cases)
 %   14-05-2008 - Added varargin iflip
 %   16-06-2008 - Added varargin parent
+%   10-06-2009 - Added varargin incout
 
-%figure;
 handles=[];
 
 % varargin options:
@@ -96,6 +97,7 @@ onAxes=false;
 iflip=0;
 inorm=0;
 parent=0;
+IncHiLow=1; % include values higher and lower that the limits of Ag.
 
 vin=varargin;
 for i=1:length(vin)
@@ -144,6 +146,8 @@ for i=1:length(vin)
     inorm=vin{i+1};
   elseif isequal(vin{i},'parent')
     parent=vin{i+1};
+  elseif isequal(vin{i},'incout')
+    IncHiLow=vin{i+1};
   end
 end
 
@@ -170,12 +174,11 @@ if isempty(Ag)
   yl=get(gca,'ytick');
   close(f)
   dyl=diff(yl); dyl=dyl(1);
-  if min(F)>yl(1),   yl=[yl(1)-dyl yl];   end
+  if min(F)<yl(1),   yl=[yl(1)-dyl yl];   end
   if max(F)>yl(end), yl=[yl yl(end)+dyl]; end
   Ag=yl;
 end
 
-IncHiLow=1; % include values higher and lower that the limits of Ag.
 for i=1:length(Ay)-1
   if i==1
      I=find( (D>=Ay(i) & D<Ay(i+1)) | D>=Ay(end));
@@ -185,13 +188,17 @@ for i=1:length(Ay)-1
   b=F(I);
 
   for j=1:length(Ag)-1
-    J=find(b>=Ag(j) & b<Ag(j+1));
+    if j==length(Ag)-1
+      J=find(b>=Ag(j) & b<=Ag(j+1)); % include data with last Agg
+    else
+      J=find(b>=Ag(j) & b<Ag(j+1));
+    end
     E(i,j)=length(J);
   end
 
   if IncHiLow
     E(i,1)=length(find(b<Ag(2)));
-    E(i,end)=length(find(b>=Ag(end-1)));
+    E(i,end)=length(find(b>Ag(end-1)));
   end
 end
 b=sum(E,2)/length(D)*100;
@@ -206,7 +213,7 @@ if inorm
 end
 
 % check if has values higher or lower than the Ag limits
-hasH=length(find(F>=Ag(end)));
+hasH=length(find(F>Ag(end)));
 hasL=length(find(F<Ag(1)));
 
 % calc number of percentage circles to draw:
@@ -338,7 +345,7 @@ y0=-g-ri;
 if legType==1 % contimuous.
   for j=1:length(Ag)-1
     lab=num2str(Ag(j));
-    if j==1 & hasL & ~IncHiLow
+    if j==1 & hasL & IncHiLow
       lab='';
     end
     y1=y0+h;
@@ -346,16 +353,16 @@ if legType==1 % contimuous.
     handles(end+1)=text(x1+L/4,y0,lab,'VerticalAlignment','middle','fontsize',8);
     y0=y1;
   end
-  if ~ (hasH & ~IncHiLow)
+  if ~ (hasH & IncHiLow)
     handles(end+1)=text(x1+L/4,y0,num2str(Ag(end)),'VerticalAlignment','middle','fontsize',8);
   end
 elseif legType==2 % separated boxes.
   for j=1:length(Ag)-1
     lab=[num2str(Ag(j)) ' - ' num2str(Ag(j+1))];
-    if j==1 & hasL & ~IncHiLow
+    if j==1 & hasL & IncHiLow
       lab=['<',num2str(Ag(2))];
     end
-    if j==length(Ag)-1 & hasH & ~IncHiLow
+    if j==length(Ag)-1 & hasH & IncHiLow
       lab=['>=',num2str(Ag(j))];
     end
     y1=y0+h;
