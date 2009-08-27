@@ -55,7 +55,7 @@ end
 % apply mask at field:
 D_(mask==0)=nan;
 
-for j=24:eta;
+for j=1:eta;
   if quiet==2 && mod(j,10)==0 || j==eta
     fprintf('- %3d of %d\n',j,eta);
   end

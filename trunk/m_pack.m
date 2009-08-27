@@ -232,7 +232,7 @@ if show_what
   fprintf('\n');
 
   fprintf(1,' --  m_files    -- diverse utilities\n'                                   );
-  fprintf(1,' --  models     -- roms/pom/occam/pop  model utilities\n'                 );
+  fprintf(1,' --  models     -- roms/pom/occam/pop/hycom/woa05 utilities\n'            );
   fprintf(1,' --  ncdview    -- netcdf visualisation\n'                                );
   fprintf(1,' --  ncx        -- netcdf explorer\n'                                     );
   fprintf(1,' --  netcdf     -- netcdf/matlab interface, by Charles R. Denham\n'       );
@@ -315,6 +315,8 @@ if start_pack | stop_pack
     [base,sep,'_po',sep,'pom'],
     [base,sep,'_po',sep,'occam'],
     [base,sep,'_po',sep,'pop'],
+    [base,sep,'_po',sep,'hycom_m'],
+    [base,sep,'_po',sep,'woa05'],
   };
 
   % dirs_ncdview:
@@ -411,7 +413,7 @@ if start_pack | stop_pack
     if isequal(toStart,'models') | isequal(toStart,'all')
       n=n+1;
       str=add_dirs(dirs_models);
-      add{n} = ['  --> adding roms, pom, occam, pop' str];
+      add{n} = ['  --> adding roms, pom, occam, pop, hycom_m, woa05' str];
     end
 
     % add ncdview:

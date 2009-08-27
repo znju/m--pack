@@ -141,7 +141,7 @@ if ~n_vardimexist(file,varname,dimTime)
   dimTime='time';
 end
 
-nTimes   = n_dim(file,varname,dimTime);
+nTimes   = n_dim(file,dimTime);
 if nTimes>1
   if nargin < 4, disp('» bad number of arguments, t is required');
     close(nc);
