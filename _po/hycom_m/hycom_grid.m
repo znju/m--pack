@@ -48,9 +48,15 @@ hr=use(g,'h');
 hu=hr;
 
 % 3d mask:
-temp=use(g,'temp','month',1);
 mt=1e3;
-Mr=~(temp>mt | temp==0);
+for month=1:12
+  temp=use(g,'temp','month',month);
+  if month==1
+    Mr=~(temp>mt | temp==0);
+  else
+    Mr=~(temp>mt | temp==0) & Mr;
+  end
+end
 Mu=Mr;
 
 if strcmpi(ruv,'uv')

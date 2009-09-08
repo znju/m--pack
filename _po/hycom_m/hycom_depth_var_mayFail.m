@@ -1,49 +1,24 @@
-function [xg,yg,h,problems]=woa05_depth_var(files,vname,lev,time,lims)
-%function [xg,yg,h]=woa05_depth_var(files,vname,lev,time,lims)
-%
-%inputs:
-%   files: {ftemp,fsalt,flandsea} if vname = 'dens'
-%   or {ftemp,flandsea} for vname='temperature'
-%   or {fsalt,flandsea} for vname='salinity'
-%
-%
-% lims: lon_min lon_max lat_min lat_max, se definido so esta regiao
-%       sera tida em  conta!!
-
-if nargin<5
-  lims=0;
-end
-
-if length(files)==2
-  [ft,fls]=unpack(files);
-elseif length(files)==3
-  [ft,fs,fls]=unpack(files);
-end
+function [xg,yg,h,problems]=hycom_depth_var(f,vname,lev,time)
 
 % load grid vars:
-[xg,yg,hg,mg,m3g] = woa05_grid(fls,ft);
-[n,eta,xi]=size(m3g);
-
-if ~isequal(lims,0)
-  [lon1,lon2,lat1,lat2]=unpack(lims);
-  [i1,j1]=find(xg>=lon1  & yg>=lat1); i1=i1(1); j1=j1(1);
-  [i2,j2]=find(xg<=lon2  & yg<=lat2); i2=i2(end); j2=j2(end);
-
-  xg=xg(i1:i2,j1:j2);
-  yg=yg(i1:i2,j1:j2);
-  hg=hg(i1:i2,j1:j2);
+UVvars = {};
+if ismember(vname,UVvars)
+  [xg,yg,hg,mg,m3g] = hycom_grid(f,'uv');
+else
+  [xg,yg,hg,mg,m3g] = hycom_grid(f);
 end
+[n,eta,xi]=size(m3g);
 
 % load var:
 if isequal(vname,'dens')
-  D=woa05_densp(ft,fs,time);
+  D=hycom_densp(f,time);
 else
-  D=use(ft,vname,'T',time);
+  D=use(f,vname,'month',time);
 end
 %D(D==fastmode(D))=inf;
 
 % get z3d:
-depth=use(ft,'Z'); N=length(depth);
+depth=use(f,'depth'); N=length(depth);
 z3d=repmat(depth,[1 eta xi]);
 
 % find increase direction with depth: --------------------------------
@@ -64,19 +39,12 @@ if dtmp(end)-dtmp(1) <0
   INV=0;
 end
 % --------------------------------------------------------------------
-
 if INV
   D(m3g==0)=inf;
   D=flipdim(D,1);
   z3d=flipdim(z3d,1);
 else
   D(m3g==0)=-inf;
-end
-
-if ~isequal(lims,0)
-  D=D(:,i1:i2,j1:j2);
-  z3d=z3d(:,i1:i2,j1:j2);
-  [eta,xi]=size(xg);
 end
 
 if 0
@@ -106,7 +74,7 @@ else % same as:
         %b=find(squeeze(iM(:,i,j)));
         %iM(b(2:end),i,j)=0;
         problems(i,j)=1;
-        %iM(:,i,j), pause
+        %iM(:,i,j), d(:,i,j), pause
       end
     end
   end
@@ -127,7 +95,6 @@ else % same as:
     end
     fprintf(1,'... done\n')
   end
-
   d=zeros([N+2,eta xi]);
   d(1,:,:)=inf;
   d(end,:,:)=-inf;
