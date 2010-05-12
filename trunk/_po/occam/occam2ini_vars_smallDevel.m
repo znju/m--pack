@@ -64,7 +64,8 @@ ang=use(grd,'angle')*180/pi;
 % zeta is needed, interpolate:
 vname='SEA_SURFACE_HEIGHT__MEAN_';
 SSH=use(fname,vname,'DEPTH',i,'miss',0)*0.01;
-ssh=interp2(xoc,yoc,SSH,xg,yg);
+ssh=griddata(xoc,yoc,SSH,xg,yg);
+%ssh=interp2(xoc,yoc,SSH,xg,yg);
 ssh(isnan(ssh))=0;
 
 if ~quiet
@@ -120,12 +121,19 @@ V    = repmat(nan,[Noc eta xi]); % at rho, instead of [Noc eta-1 xi]
 if ~quiet
   fprintf(1,'  > slicing occam data\n');
 end
+if 0
 [i1,j1]=find_nearest(xoc,yoc,min(min(xg)),min(min(yg)));
 [i2,j2]=find_nearest(xoc,yoc,max(max(xg)),max(max(yg)));
 i1=max(1,i1-3); i1=i1(1);
 j1=max(1,j1-3); j1=j1(1);
 i2=min(size(xoc,1),i2+3); i2=i2(1);
 j2=min(size(xoc,2),j2+3); j2=j2(1);
+else
+i1=1;
+j1=1;
+i2=size(xoc,1);
+j2=size(xoc,2);
+end
 
 ilat=[num2str(i1) ':' num2str(i2)];
 ilon=[num2str(j1) ':' num2str(j2)];
@@ -140,7 +148,8 @@ for i=1:Noc
   vname='POTENTIAL_TEMPERATURE__MEAN_';
   voc=use(fname,vname,'DEPTH',i,'LONGITUDE_T',ilon,'LATITUDE_T',ilat,'miss',-2);
   voc=extrap2(xoc,yoc,voc,nan);
-  TEMP(i,:,:)=interp2(xoc,yoc,voc,xg,yg);
+  TEMP(i,:,:)=griddata(xoc,yoc,voc,xg,yg);
+  %TEMP(i,:,:)=interp2(xoc,yoc,voc,xg,yg);
 
   vname='SALINITY__MEAN_';
   voc=use(fname,vname,'DEPTH',i,'LONGITUDE_T',ilon,'LATITUDE_T',ilat);
@@ -148,26 +157,21 @@ for i=1:Noc
   miss=max(max(voc));
   voc(voc==miss)=nan;
   voc=extrap2(xoc,yoc,voc,nan);
-  SALT(i,:,:)=interp2(xoc,yoc,voc,xg,yg);
+  SALT(i,:,:)=griddata(xoc,yoc,voc,xg,yg);
+  %SALT(i,:,:)=interp2(xoc,yoc,voc,xg,yg);
 
   % get U and V at rho points in order to rotate to grid angles:
   vname='U_VELOCITY__MEAN_';
-  if n_vardimexist(fname,vname,'LONGITUDE_U')
-    voc=use(fname,vname,'DEPTH',i,'LONGITUDE_U',ilon,'LATITUDE_U',ilat,'miss',0)*0.01;
-  else
-    voc=use(fname,vname,'DEPTH',i,'LONGITUDE_T',ilon,'LATITUDE_T',ilat,'miss',0)*0.01; % required for occam 1_12 !!
-  end
+  voc=use(fname,vname,'DEPTH',i,'LONGITUDE_U',ilon,'LATITUDE_U',ilat,'miss',0)*0.01;
   voc=extrap2(xoc,yoc,voc,nan);
-  U(i,:,:)=interp2(xocu,yocu,voc,xg,yg);%,xu,yu);
+  U(i,:,:)=griddata(xocu,yocu,voc,xg,yg);%,xu,yu);
+  %U(i,:,:)=interp2(xocu,yocu,voc,xg,yg);%,xu,yu);
 
   vname='V_VELOCITY__MEAN_';
-  if n_vardimexist(fname,vname,'LONGITUDE_U')
-    voc=use(fname,vname,'DEPTH',i,'LONGITUDE_U',ilon,'LATITUDE_U',ilat,'miss',0)*0.01;
-  else
-    voc=use(fname,vname,'DEPTH',i,'LONGITUDE_T',ilon,'LATITUDE_T',ilat,'miss',0)*0.01;
-  end
+  voc=use(fname,vname,'DEPTH',i,'LONGITUDE_U',ilon,'LATITUDE_U',ilat,'miss',0)*0.01;
   voc=extrap2(xoc,yoc,voc,nan);
-  V(i,:,:)=interp2(xocu,yocu,voc,xg,yg);%xv,yv);
+  V(i,:,:)=griddata(xocu,yocu,voc,xg,yg);%xv,yv);
+  %V(i,:,:)=interp2(xocu,yocu,voc,xg,yg);%xv,yv);
 end
 
 % rotate U V and set at Arakawa-C u and v locations:

@@ -105,7 +105,7 @@ if ~isequal(size(h),size(zeta))
   end
 end
 
-% next lines used to generalise the calculus, decreasing number of
+% next lines used to generalise the calc, decreasing number of
 % iterations:
 OH=ones(size(h));
 OZ=ones(size(zeta));

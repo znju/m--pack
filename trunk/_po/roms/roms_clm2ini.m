@@ -62,6 +62,7 @@ for i =1:length(vars)
     fprintf(1,' - using %7s t1,t2= %6.2f %6.2f  d1,d2= %6.2f %6.2f\n',varname,t(i1),t(i2),d1,d2);
   end
 
+  if ~n_vardimexist(clm,varname,tname), tname='clm_time'; end
   v1=use(clm,varname,tname,i1);
   v2=use(clm,varname,tname,i2);
 

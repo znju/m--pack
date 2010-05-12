@@ -63,10 +63,23 @@ function [x,y,z,v,labels]=roms_slicelon(file,varname,lon,t,varargin)
 %   ??-02-2005 - Improved
 %   24-07-2005 - Changed to allow roms2.2
 
-x        = [];
-y        = [];
-z        = [];
-v        = [];
+
+
+
+
+
+
+x    = [];
+y    = [];
+z    = [];
+v    = [];
+mask = [];
+
+
+
+TODO !!!!!!!!!!!!!!!!
+%return
+
 labels.x = [];
 labels.y = [];
 labels.z = [];

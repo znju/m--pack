@@ -26,9 +26,7 @@ function [x,y,h,m]=roms_grid(g,ruvp,varargin)
 %
 %   MMA 02-07-2008, mma@odyle.net
 %   Dep. Earth Physics, UFBA, Salvador, Bahia, Brasil
-
-% Created from pom_grid. A previous roms_grid existed (18-8-2004)
-% but was returning only for rho points
+%   21-04-2010, IO-USP
 
 if nargin <2
   ruvp='r';
@@ -58,53 +56,77 @@ if ~ismember(ruvp,{'r','u','v','p'})
   ruvp='r';
 end
 
-if strcmpi(ruvp,'p')
-  x_name = 'lon_psi';  xx_name = 'x_psi';
-  y_name = 'lat_psi';  yy_name = 'y_psi';
-  m_name = 'mask_psi';
-  xdim = 'xi_psi';
-  ydim = 'eta_psi';
-elseif strcmpi(ruvp,'u')
-  x_name = 'lon_u';    xx_name = 'x_u';
-  y_name = 'lat_u';    yy_name = 'y_u';
-  m_name = 'mask_u';
-  xdim = 'xi_u';
-  ydim = 'eta_u';
-elseif strcmpi(ruvp,'v')
-  x_name = 'lon_v';    xx_name = 'x_v';
-  y_name = 'lat_v';    yy_name = 'y_v';
-  m_name = 'mask_v';
-  xdim = 'xi_v';
-  ydim = 'eta_v';
-elseif strcmpi(ruvp,'r')
-  x_name = 'lon_rho';  xx_name = 'x_rho';
-  y_name = 'lat_rho';  yy_name = 'y_rho';
-  m_name = 'mask_rho';
-  xdim = 'xi_rho';
-  ydim = 'eta_rho';
-end
+x=[];
+y=[];
+h=[];
+m=[];
 
-if ~n_varexist(g,x_name)
-  x_name=xx_name;
-  y_name=yy_name;
-end
-
-x=use(g,x_name,xdim,xi,ydim,eta);
-y=use(g,y_name,xdim,xi,ydim,eta);
-m=use(g,m_name,xdim,xi,ydim,eta);
-
-h=use(g,'h');
+vars=n_filevars(g);
+nc=netcdf(g);
+h=nc{'h'}(:);
+mr=nc{'mask_rho'}(:);
+[mu,mv,mp]=uvp_mask(mr);
 if strcmpi(ruvp,'u')
-  h=(h(:,2:end)+h(:,1:end-1))/2;
+  if ismember('lon_u',vars) & ismember('mask_u',vars)
+    x=nc{'lon_u'}(:);
+    y=nc{'lat_u'}(:);
+    m=nc{'mask_u'}(:);
+  elseif ismember('x_u',vars) & ismember('mask_u',vars)
+    x=nc{'x_u'}(:);
+    y=nc{'y_u'}(:);
+    m=nc{'mask_u'}(:);
+  else
+    [x,y]=load_rho(nc,vars);
+    x=(x(:,2:end)+x(:,1:end-1))/2;
+    y=(y(:,2:end)+y(:,1:end-1))/2;
+    h=(h(:,2:end)+h(:,1:end-1))/2;
+    m=mu;
+  end
+
 elseif strcmpi(ruvp,'v')
-  h=(h(2:end,:)+h(1:end-1,:))/2;
+  if ismember('lon_v',vars) & ismember('mask_v',vars)
+    x=nc{'lon_v'}(:);
+    y=nc{'lat_v'}(:);
+    m=nc{'mask_v'}(:);
+  elseif ismember('x_v',vars) & ismember('mask_v',vars)
+    x=nc{'x_v'}(:);
+    y=nc{'y_v'}(:);
+    m=nc{'mask_v'}(:);
+  else
+    [x,y]=load_rho(nc,vars);
+    x=(x(2:end,:)+x(1:end-1,:))/2;
+    y=(y(2:end,:)+y(1:end-1,:))/2;
+    h=(h(2:end,:)+h(1:end-1,:))/2;
+    m=mv;
+  end
+
 elseif strcmpi(ruvp,'p')
-  h=(h(:,2:end)+h(:,1:end-1))/2;
-  h=(h(2:end,:)+h(1:end-1,:))/2;
+  if ismember('lon_psi',vars) & ismember('mask_psi',vars)
+    x=nc{'lon_psi'}(:);
+    y=nc{'lat_psi'}(:);
+    m=nc{'mask_psi'}(:);
+  elseif ismember('x_psi',vars) & ismember('mask_psi',vars)
+    x=nc{'x_psi'}(:);
+    y=nc{'y_psi'}(:);
+    m=nc{'mask_psi'}(:);
+  else
+    [x,y]=load_rho(nc,vars);
+    x=(x(:,2:end)+x(:,1:end-1))/2; x=(x(2:end,:)+x(1:end-1,:))/2;
+    y=(y(:,2:end)+y(:,1:end-1))/2; y=(y(2:end,:)+y(1:end-1,:))/2;
+    h=(h(:,2:end)+h(:,1:end-1))/2; h=(h(2:end,:)+h(1:end-1,:))/2;
+    m=mp;
+  end
+else
+  [x,y]=load_rho(nc,vars);
+  m=mr;
 end
+close(nc);
 
 if ~(isequal(xi,xi0) & isequal(eta,eta0))
+  x=eval(['x(' num2str(eta) ',' num2str(xi) ')']);
+  y=eval(['y(' num2str(eta) ',' num2str(xi) ')']);
   h=eval(['h(' num2str(eta) ',' num2str(xi) ')']);
+  m=eval(['m(' num2str(eta) ',' num2str(xi) ')']);
 end
 
 if isll
@@ -113,3 +135,16 @@ if isll
   x=lon;
   y=lat;
 end
+
+
+function [x,y]=load_rho(nc,vars)
+x=[];
+y=[];
+if ismember('lon_rho',vars)
+  x=nc{'lon_rho'}(:);
+  y=nc{'lat_rho'}(:);
+elseif ismember('x_rho',vars)
+  x=nc{'x_rho'}(:);
+  y=nc{'y_rho'}(:);
+end
+

@@ -1,8 +1,8 @@
 function [X,b] = ll_dx2(x,y,varargin)
-%LL_DX   Lon Lat (2d) distance intervals
+%LL_DX2   Lon Lat (2d) distance intervals
 %
 %   Syntax:
-%      D,X = LL_DX2(LON,LAT,VARARGIN)
+%      X,D = LL_DX2(LON,LAT,VARARGIN)
 %
 %   Inputs:
 %      LON, LAT   2-d arrays with path coordinates

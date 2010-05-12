@@ -22,6 +22,12 @@ function [Ind,d] = cyclic_index(time,t,cycle)
 %   MMA 16-07-2008, mma@odyle.net
 %   Dep. Earth Physics, UFBA, Salvador, Bahia, Brasil
 
+
+% time must be <= cycle !!, mma 13-01-2010
+i=find(time>cycle);
+if i, time=time(1:i-1); end
+
+
 t=mod(t,cycle);
 Inds=[length(time) 1:length(time) 1];
 Time=[-(cycle-time(end)) time(:)' cycle+time(1)];

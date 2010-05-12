@@ -30,6 +30,7 @@ tag=' MAIN: started time-steping.';
 nskip=2;
 
 badFormatStr='******';
+goodFormatStr='000000';
 
 fid=fopen(f);
 data=[];
@@ -59,7 +60,7 @@ while 1
     if n==1, L=length(tline); end
 
     if findstr(badFormatStr,tline)
-      tline=['0 ' tline(length(badFormatStr)+1:end)];
+      tline=strrep(tline,badFormatStr,goodFormatStr);
     end
 
     if length(tline)==L
