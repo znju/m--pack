@@ -24,17 +24,26 @@ if nargin<2
   ruv='r';
 end
 
-lonr=use(g,'LONGITUDE_T'); i=lonr>180; lonr(i)=lonr(i)-360;
-latr=use(g,'LATITUDE_T');
+if n_varexist(g,'REAL_LONGITUDE_T')
+  lonr=use(g,'REAL_LONGITUDE_T'); i=lonr>180; lonr(i)=lonr(i)-360;
+  latr=use(g,'REAL_LATITUDE_T');
 
-lonu=use(g,'LONGITUDE_U'); i=lonu>180; lonu(i)=lonu(i)-360;
-latu=use(g,'LATITUDE_U');
+  lonu=use(g,'REAL_LONGITUDE_U'); i=lonu>180; lonu(i)=lonu(i)-360;
+  latu=use(g,'REAL_LATITUDE_U');
+else
+  lonr=use(g,'LONGITUDE_T'); i=lonr>180; lonr(i)=lonr(i)-360;
+  latr=use(g,'LATITUDE_T');
+
+  lonu=use(g,'LONGITUDE_U'); i=lonu>180; lonu(i)=lonu(i)-360;
+  latu=use(g,'LATITUDE_U');
+
+  [lonr,latr]=meshgrid(lonr,latr);
+  [lonu,latu]=meshgrid(lonu,latu);
+end
 
 maskr=use(g,'KMT');
 masku=use(g,'KMU');
 
-[lonr,latr]=meshgrid(lonr,latr);
-[lonu,latu]=meshgrid(lonu,latu);
 
 mr=0*maskr; mr(maskr~=0)=1;
 mu=0*masku; mu(masku~=0)=1;

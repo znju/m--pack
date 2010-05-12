@@ -2,7 +2,7 @@ function varargout = wind_rose(D,F,varargin)
 %WIND_ROSE   Wind rose of direction and intensity
 % 
 %   Syntax:
-%      HANDLES = WIND_ROSE(D,I,VARARGIN)
+%      [HANDLES,DATA] = WIND_ROSE(D,I,VARARGIN)
 %
 %   Inputs:
 %      D   Directions
@@ -38,6 +38,7 @@ function varargout = wind_rose(D,F,varargin)
 %
 %   Output:
 %      HANDLES   Handles of all lines, fills, texts
+%      DATA   Wind rose occurences per direction and intensity
 %
 %   Examle:
 %      d=0:10:350;
@@ -75,6 +76,7 @@ function varargout = wind_rose(D,F,varargin)
 %   14-05-2008 - Added varargin iflip
 %   16-06-2008 - Added varargin parent
 %   10-06-2009 - Added varargin incout
+%   27-04-2010 - Added output DATA
 
 handles=[];
 
@@ -386,8 +388,11 @@ if onAxes
   place_wr(onAxes,wrAx,onAxesX,onAxesY,onAxesR);
 end
 
-if nargout==1
+if nargout>=1
   varargout{1}=handles;
+end
+if nargout>=2
+  varargout{2}=E;
 end
 
 function place_wr(ax,ax2,x,y,width)

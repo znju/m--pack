@@ -88,12 +88,14 @@ if ~(V(1)==0 & V(2)==0)
   P2=P1+(param1*L+bb)*r;
   P6=P7+(param1*L+bb)*r;
 
-  fill([P(1) P1(1) P2(1) P3(1) P4(1) P5(1) P6(1) P7(1) P(1)],...
-       [P(2) P1(2) P2(2) P3(2) P4(2) P5(2) P6(2) P7(2) P(2)],color_in);
+  if ~isequal(color_in,'none')
+    fill([P(1) P1(1) P2(1) P3(1) P4(1) P5(1) P6(1) P7(1) P(1)],...
+         [P(2) P1(2) P2(2) P3(2) P4(2) P5(2) P6(2) P7(2) P(2)],color_in);
+  end
   ish = ishold;
   hold on
   plot([P(1) P1(1) P2(1) P3(1) P4(1) P5(1) P6(1) P7(1) P(1)],...
-       [P(2) P1(2) P2(2) P3(2) P4(2) P5(2) P6(2) P7(2) P(2)],color_edge);
+       [P(2) P1(2) P2(2) P3(2) P4(2) P5(2) P6(2) P7(2) P(2)],'color',color_edge);
   if ~ish
     hold off
   end

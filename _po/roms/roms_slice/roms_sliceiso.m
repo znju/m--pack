@@ -111,7 +111,7 @@ end
 % --------------------------------------------------------------------
 % get dimensions/check input data/set variable extraction (dimsvSTR):
 % --------------------------------------------------------------------
-dims = n_vardims(file,varname);
+dims = n_vardims(file,varname,0);
 if isempty(dims)
   fprintf(1,'» variable %s has unknown dimension',varname);
   close(nc);

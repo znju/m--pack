@@ -2,7 +2,7 @@ function [X,b] = ll_dx(x,y,varargin)
 %LL_DX   Lon Lat distance intervals
 %
 %   Syntax:
-%      D,X = LL_DX(LON,LAT,VARARGIN)
+%      X,D = LL_DX(LON,LAT,VARARGIN)
 %
 %   Inputs:
 %      LON, LAT   Path coordinates

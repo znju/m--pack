@@ -1,4 +1,4 @@
-function [x,y,z,v]=vertical_slice_aux(f,varname,t,varargin)
+function [x,y,z,v]=roms_slicell_aux(f,varname,t,varargin)
 %VERTICAL_SLICE_AUX   Auxiliary tool for VERTICAL_SLICE
 %   Useful to select the slice xy path. First the 2d region is
 %   plotted and the user can select the path with mouse, either as
@@ -78,7 +78,7 @@ X=X(1:d:end);
 Y=Y(1:d:end);
 
 % get slice -------------------------------------:
-[x,y,z,v]=vertical_slice(f,varname,t,X,Y);
+[x,y,z,v]=roms_slicell(f,varname,X,Y,t);
 
 % plot result -----------------------------------:
 if plt
