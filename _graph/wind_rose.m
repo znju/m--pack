@@ -65,7 +65,7 @@ function varargout = wind_rose(D,F,varargin)
 %      wind_rose(D,V,'ax',[ax x y 1/3])
 %
 %   MMA 26-11-2007, mma@odyle.net
-
+%
 %   IEO, Instituto Español de Oceanografía
 %   La Coruña, España
 
@@ -77,6 +77,11 @@ function varargout = wind_rose(D,F,varargin)
 %   16-06-2008 - Added varargin parent
 %   10-06-2009 - Added varargin incout
 %   27-04-2010 - Added output DATA
+%   17-06-2010 - Bug fix (E(i,end)=length(find(b>=Ag(end-1))),
+%                previously was ...b>Ag...). So the percentages where
+%                wrong only when using intensities equal to the lower
+%                value of the highest intensity subdivision, basically
+%                an academic case.
 
 handles=[];
 
@@ -200,7 +205,7 @@ for i=1:length(Ay)-1
 
   if IncHiLow
     E(i,1)=length(find(b<Ag(2)));
-    E(i,end)=length(find(b>Ag(end-1)));
+    E(i,end)=length(find(b>=Ag(end-1)));
   end
 end
 b=sum(E,2)/length(D)*100;

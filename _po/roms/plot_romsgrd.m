@@ -56,6 +56,15 @@ if  isempty(grids) | ~exist(grids{1})
   grids=find_romsfiles(file,'his',parse_links);
 end
 
+if  isempty(grids) | ~exist(grids{1})
+  grids=find_romsfiles(file,'avg',parse_links);
+end
+
+if  isempty(grids) | ~exist(grids{1})
+  grids={file};
+end
+
+
 % load data from file:
 grd0=grids{1};
 [x,y,h,m] = roms_grid(grd0);

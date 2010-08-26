@@ -2,13 +2,13 @@ function [x,y,z,v,mask]=roms_slicez(fname,varname,ind,t,varargin)
 %ROMS_SLICEZ   Make ROMS slice at z=const
 %
 %   Syntax:
-%      [X,Y,Z,V,M] = ROMS_SLICEK(FILE,VARNAME,K,T,VARARGIN)
-%      V =  ROMS_SLICEI(FILE,VARNAME,K,T,VARARGIN)
+%      [X,Y,Z,V,M] = ROMS_SLICEZ(FILE,VARNAME,Z,T,VARARGIN)
+%      V =  ROMS_SLICEZ(FILE,VARNAME,Z,T,VARARGIN)
 %
 %   Inputs:
 %      FILE      ROMS input/output file
 %      VARNAME   Variable to extract (array with dimension
-%      K         S-level indice
+%      Z         Despth
 %      T         Time indice
 %      VARARGIN:
 %         's_params': structure with fields: .tts, .ttb, .hc and .N
@@ -142,8 +142,6 @@ if ~iszRho & ~iszW
   fprintf(1,':: %s :: %s has no s (vertical) dimension\n',mfilename,varname);
   return
 end
-
-
 
 % extract variable:
 s='';

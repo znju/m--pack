@@ -26,7 +26,7 @@ function [X,Y,Z,V,mask] = roms_slicell(fname,varname,X,Y,time,varargin)
 %
 %   Outputs:
 %     X,Y   Same as LON, LAT, but with size of extracted variable
-%     Z     Depth (at zz or z points)
+%     Z     Depth
 %     DIST  Distance (m)
 %     V     Variable at slice
 %     M     Mask
@@ -242,7 +242,7 @@ end %useGriddata
 
 mask=~isnan(V);
 
-if nargout==3 | plt
+if nargout<=4 | plt
   dst=spheric_dist(Y(2:end),Y(1:end-1),X(2:end),X(1:end-1));
   dst=[0; cumsum(dst(:))];
   dst=repmat(dst(:)',[n 1]);
@@ -289,8 +289,9 @@ if plt
   end
 end
 
-if nargout==3
+if nargout<=4
   X=dst;
   Y=Z;
   Z=V;
+  V=mask;
 end

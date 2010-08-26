@@ -79,9 +79,10 @@ if strcmpi(ruvp,'u')
     [x,y]=load_rho(nc,vars);
     x=(x(:,2:end)+x(:,1:end-1))/2;
     y=(y(:,2:end)+y(:,1:end-1))/2;
-    h=(h(:,2:end)+h(:,1:end-1))/2;
+  %  h=(h(:,2:end)+h(:,1:end-1))/2;
     m=mu;
   end
+  h=(h(:,2:end)+h(:,1:end-1))/2;
 
 elseif strcmpi(ruvp,'v')
   if ismember('lon_v',vars) & ismember('mask_v',vars)
@@ -96,9 +97,10 @@ elseif strcmpi(ruvp,'v')
     [x,y]=load_rho(nc,vars);
     x=(x(2:end,:)+x(1:end-1,:))/2;
     y=(y(2:end,:)+y(1:end-1,:))/2;
-    h=(h(2:end,:)+h(1:end-1,:))/2;
+  %  h=(h(2:end,:)+h(1:end-1,:))/2;
     m=mv;
   end
+  h=(h(2:end,:)+h(1:end-1,:))/2;
 
 elseif strcmpi(ruvp,'p')
   if ismember('lon_psi',vars) & ismember('mask_psi',vars)
@@ -113,9 +115,10 @@ elseif strcmpi(ruvp,'p')
     [x,y]=load_rho(nc,vars);
     x=(x(:,2:end)+x(:,1:end-1))/2; x=(x(2:end,:)+x(1:end-1,:))/2;
     y=(y(:,2:end)+y(:,1:end-1))/2; y=(y(2:end,:)+y(1:end-1,:))/2;
-    h=(h(:,2:end)+h(:,1:end-1))/2; h=(h(2:end,:)+h(1:end-1,:))/2;
+ %   h=(h(:,2:end)+h(:,1:end-1))/2; h=(h(2:end,:)+h(1:end-1,:))/2;
     m=mp;
   end
+  h=(h(:,2:end)+h(:,1:end-1))/2; h=(h(2:end,:)+h(1:end-1,:))/2;
 else
   [x,y]=load_rho(nc,vars);
   m=mr;
