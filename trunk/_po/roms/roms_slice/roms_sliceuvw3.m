@@ -49,6 +49,8 @@ function [x,y,z,v,labels]=roms_sliceuvw3(file,type,ind,t,varargin)
 %
 %   See also ROMS_SLICE, S_LEVELS
 
+disp('DEPRECATED !!!!!!!!!!')
+
 %   Department of Physics
 %   University of Aveiro, Portugal
 
