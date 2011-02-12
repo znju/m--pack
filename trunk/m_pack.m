@@ -244,6 +244,7 @@ if show_what
   fprintf(1,' --  timeplt    -- timeplt from Rich Signell\n'                           );
   fprintf(1,' --  seawater   -- CSIRO SEAWATER Library (v 2.0.1)\n'                    );
   fprintf(1,' --  oceans     -- Oceans Toolbox for Matlab\n'                           );
+  fprintf(1,' --  air_sea    -- AIR_SEA Toolbox\n'                                     );
   fprintf(1,' --  data       -- datasets\n'                                            );
 
   fprintf('\n');
@@ -397,6 +398,10 @@ if start_pack | stop_pack
     [base,sep,'other_authors',sep,'oceans']
   };
 
+  % other authors, air_sea
+  dirs_air_sea  = {
+    [base,sep,'other_authors',sep,'air_sea']
+  };
 
   if start_pack
     n = 0;
@@ -493,8 +498,13 @@ if start_pack | stop_pack
       add{n} = ['  --> adding oceans' str];
     end
 
+    % add air_sea:
+    if isequal(toStart,'air_sea') | isequal(toStart,'all')
+      n=n+1;
+      str=add_dirs(dirs_air_sea);
+      add{n} = ['  --> adding air_sea' str];
+    end
 
-% SEA, OCEANS
 
     % add data:
     if isequal(toStart,'data') | isequal(toStart,'all')
@@ -609,6 +619,13 @@ if start_pack | stop_pack
       n = n+1;
       str=rm_dirs(dirs_oceans);
       remove{n} = ['  --> removed oceans' str];
+    end
+
+    % remove air_sea:
+    if isequal(toStop,'air_sea') | isequal(toStop,'all')
+      n = n+1;
+      str=rm_dirs(dirs_air_sea);
+      remove{n} = ['  --> removed air_sea' str];
     end
 
     % remove data:

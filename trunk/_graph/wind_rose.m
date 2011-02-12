@@ -35,6 +35,10 @@ function varargout = wind_rose(D,F,varargin)
 %                highest values are placed nearest the origin [{0} 1]
 %       -inorm, normalize intensities, means all angles will have 100%
 %       -incout, if 0, data outside di limits will not be used [0 {1}]
+%       -nradials, number of labeled direction radials [{4} 8 16]
+%       -bg, background rectangle including everything or only the
+%            largest circle [{'rectangle'}, 'circle']
+%       -bgcolor, color of the bg object ['w']
 %
 %   Output:
 %      HANDLES   Handles of all lines, fills, texts
@@ -82,6 +86,7 @@ function varargout = wind_rose(D,F,varargin)
 %                wrong only when using intensities equal to the lower
 %                value of the highest intensity subdivision, basically
 %                an academic case.
+%   20-10-2010 - added varargin nradials, bg, bgcolor
 
 handles=[];
 
@@ -105,6 +110,9 @@ iflip=0;
 inorm=0;
 parent=0;
 IncHiLow=1; % include values higher and lower that the limits of Ag.
+nradials=4; % 8, 16
+bg='rectangle';
+bgcolor='w';
 
 vin=varargin;
 for i=1:length(vin)
@@ -155,6 +163,12 @@ for i=1:length(vin)
     parent=vin{i+1};
   elseif isequal(vin{i},'incout')
     IncHiLow=vin{i+1};
+  elseif isequal(vin{i},'nradials')
+    nradials=vin{i+1};
+  elseif isequal(vin{i},'bg')
+    bg=vin{i+1};
+  elseif isequal(vin{i},'bgcolor')
+    bgcolor=vin{i+1};
   end
 end
 
@@ -236,7 +250,8 @@ if isempty(ci)
     i=find(d==min(d));
     d=dcircles(i(1));
     if d*ncircles<max(b)
-      ncircles=ncircles+1;
+      %ncircles=ncircles+1;
+      ncircles=ncircles+ceil((max(b)-d*ncircles)/d);
     end
     ci=[1:ncircles]*d;
     g=ncircles*d;
@@ -254,17 +269,63 @@ else
   wrAx=axes('units','normalized');
 end
 ri=g*ri;
-handles(end+1)=fill([-rs*g rl*g rl*g -rs*g],[-rs*g -rs*g rs*g rs*g],'w',...
-                     'EdgeColor',borderColor);
+t0=[0:360]*pi/180;
+
+if isequal(bg,'rectangle')
+  handles(end+1)=fill([-rs*g rl*g rl*g -rs*g],[-rs*g -rs*g rs*g rs*g],bgcolor,...
+                       'EdgeColor',borderColor);
+elseif isequal(bg,'circle')
+  x=(ci(end)+ri)*cos(t0);
+  y=(ci(end)+ri)*sin(t0);
+  fill(x,y,bgcolor,'EdgeColor',borderColor);
+end
+
 if onAxes
   set(handles(end),'facecolor','none')
 end
 hold on
-handles(end+1)=plot([-g-ri -ri nan ri g+ri nan 0 0 nan 0 0],...
-                    [0 0 nan 0 0 nan -g-ri -ri nan ri g+ri],':','color',lineColors);
-t0=[0:360]*pi/180;
+
+if nradials==4
+  handles(end+1)=plot([-g-ri -ri nan ri g+ri nan 0 0 nan 0 0],...
+                      [0 0 nan 0 0 nan -g-ri -ri nan ri g+ri],':','color',lineColors);
+else
+  % additional radial directions
+  addAngles16=[0:22.5:359]*pi/180;
+  addLabels16={'E','ENE','NE','NNE','N','NNW','NW','WNW','W','WSE','SE','SSW','S','SSE','SE','ESE'};
+
+  addAngles8=[0:45:359]*pi/180;
+  addLabels8={'E','NE','N','NW','W','SE','S','SE'};
+
+  if nradials==16
+    addAngles=addAngles16;
+    addLabels=addLabels16;
+  elseif nradials==8
+    addAngles=addAngles8;
+    addLabels=addLabels8;
+  end
+
+  labs=[];
+  plts=[];
+  for i=1:length(addAngles)
+    a=addAngles(i);
+    plts(i)=plot([ri*cos(a) (g+ri)*cos(a)],[ri*sin(a) (g+ri)*sin(a)],':');
+
+
+    labs(i)=text((g*1.075+ri)*cos(a),(g*1.075+ri)*sin(a),addLabels{i},...
+         'VerticalAlignment','middle','HorizontalAlignment','center',...
+         'BackgroundColor',percBg,'FontSize',8);
+
+    if isequal(bg,'circle'), set(labs(i),'BackgroundColor','none'); end
+  end
+  handles=[handles plts labs];
+end
+
 labs=[];
-Ang=[1/4 3/4 5/4 7/4]*pi;
+if nradials>4
+  Ang=[1/8+1/16 1-1/8-1/16 1+1/8+1/16 2-1/8-1/16]*pi;
+else
+  Ang=[1/4 3/4 5/4 7/4]*pi;
+end
 Valign={'top' 'top' 'bottom' 'bottom'};
 Halign={'right' 'left' 'left' 'right'};
 for i=1:ncircles
@@ -277,7 +338,10 @@ for i=1:ncircles
   labs(i)=text((ci(i)+ri)*cos(Ang(quad)),(ci(i)+ri)*sin(Ang(quad)),[num2str(ci(i)),'%'],...
       'VerticalAlignment',Valign{quad},'HorizontalAlignment',Halign{quad},...
       'BackgroundColor',percBg,'FontSize',8);
+
 end
+if isequal(bg,'circle'), set(labs(end),'BackgroundColor','none'); end
+
 handles=[handles labs];
 
 % calc colors:
@@ -331,14 +395,16 @@ end
 set(wrAx,'children',ch);
 
 
-% N S E W labels:
-bg='none';
-args={'BackgroundColor',bg,'FontSize',8};
-h(1)=text(-g-ri, 0,'WEST', 'VerticalAlignment','top',   'HorizontalAlignment','left', args{:});
-h(2)=text( g+ri, 0,'EAST', 'VerticalAlignment','top',   'HorizontalAlignment','right',args{:});
-h(3)=text( 0,-g-ri,'SOUTH','VerticalAlignment','bottom','HorizontalAlignment','left', args{:});
-h(4)=text( 0, g+ri,'NORTH','VerticalAlignment','top',   'HorizontalAlignment','left', args{:});
-handles=[handles h];
+if nradials==4
+  % N S E W labels:
+  bg='none';
+  args={'BackgroundColor',bg,'FontSize',8};
+  h(1)=text(-g-ri, 0,'WEST', 'VerticalAlignment','top',   'HorizontalAlignment','left', args{:});
+  h(2)=text( g+ri, 0,'EAST', 'VerticalAlignment','top',   'HorizontalAlignment','right',args{:});
+  h(3)=text( 0,-g-ri,'SOUTH','VerticalAlignment','bottom','HorizontalAlignment','left', args{:});
+  h(4)=text( 0, g+ri,'NORTH','VerticalAlignment','top',   'HorizontalAlignment','left', args{:});
+  handles=[handles h];
+end
 
 % scale legend:
 L=(g*rl-g-ri)/7;

@@ -11,7 +11,7 @@ function [R,Z1,Z2] = iso_zlayer(z3d,zedges3d,D_,s,mask,quiet)
 %      ZE3D  Bound points ("vertical" edges of Z3D)
 %      D   Values
 %      S   Two iso values of V
-%      MASK   mask of V (may be 2D, ie, horizontal mask)
+%      MASK   mask of D (may be 2D, ie, horizontal mask)
 %      QUIET  Loop info is shown if 0 or 2 (default is 1)
 %
 %   Outputs:
@@ -49,7 +49,7 @@ Z2 = nan*zeros(eta,xi);
 
 % deal with 2 or 3d mask
 if ndims(mask)==2
-  mask=repmat(mask,n,mask);
+  mask=shiftdim(repmat(mask,[1 1 n]),2);
 end
 
 % apply mask at field:

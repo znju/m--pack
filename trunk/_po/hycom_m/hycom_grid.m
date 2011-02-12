@@ -32,7 +32,13 @@ latr=use(g,'lat');
 lonu=lonr;
 latu=latr;
 
-mr=use(g,'mask');
+if n_varexist(g,'mask')
+  mr=use(g,'mask');
+else
+  mr=use(g,'temp','depth',1)>1e3;
+  mr=~mr;
+  mr=mr*1.;
+end
 mu=mr;
 
 % not needed:
@@ -49,7 +55,7 @@ hu=hr;
 
 % 3d mask:
 mt=1e3;
-for month=1:12
+for month=1:n_dim(g,'time')
   temp=use(g,'temp','month',month);
   if month==1
     Mr=~(temp>mt | temp==0);
