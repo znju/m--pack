@@ -4,6 +4,7 @@ function [z,zw] = s_levels(h,t,b,hc,N,zeta,old)
 %   Syntax:
 %      [Z_R,Z_W] = S_LEVELS(H,THETA_S,THETA_B,HC,N,ZETA,OLD)
 %      [Z_R,Z_W] = S_LEVELS(FILE,TIME)
+%      [Z_R,Z_W] = S_LEVELS(FILE,TIME,GRID)
 %
 %   Inputs:
 %      H         Depth matrice, positive
@@ -60,16 +61,21 @@ zw = [];
 if nargin < 7
   old = 0;
 end
-if nargin>2 & nargin< 6
+if nargin>3 & nargin< 6
   disp('» arguments required')
   return
 end
 
-if nargin==2
+if nargin==2 | nargin==3
   file=h;
+  if nargin==3
+    grd=b;
+  else
+    grd=file;
+  end
   time=t;
   [t,b,hc,N]=s_params(file);
-  h=use(file,'h');
+  h=use(grd,'h');
   zeta=use(file,'zeta','+time',time);
 end
 
