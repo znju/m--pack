@@ -1,35 +1,40 @@
-function ncep2blk(Y,yref,grd,path,blk_tag,gen_blk)
+function ecmwf2blk(Y,yref,grd,path,blk_tag,gen_blk)
 
 if nargin < 6
   gen_blk=1
 end
 if nargin < 5
-  blk_tag='roms_blk_rot';
+  blk_tag='roms_ecmwf_blk';
 end
 
 % yref time to remove:
-trm=julian(yref,1,1)-julian(1800,1,1);
+trm=julian(yref,1,1)-julian(1900,1,1);
 
-fair = 'air.2m.gauss.'   ;
-fskt = 'skt.sfc.gauss.'  ;
-frh  = 'shum.2m.gauss.'  ;
-fpr  = 'prate.sfc.gauss.';
-fdsw = 'dswrf.sfc.gauss.';
-fusw = 'uswrf.sfc.gauss.';
-flw  = 'dlwrf.sfc.gauss.';
-fu10 = 'uwnd.10m.gauss.' ;
-fv10 = 'vwnd.10m.gauss.' ;
-fprs = 'pres.sfc.gauss.' ;
 
-Fgrid=[path 'land.sfc.gauss.nc'];
+fair = 't2m'     ;
+fprs = 'msl'     ;
+fu10 = 'u10_v10' ;
+fv10 = 'u10_v10' ;
+fnsr = 'ssr'     ;
+fnlw = 'lwnet'   ;
+fpr  = 'tp'      ;
+fdew = 'd2m';
+
+Fgrid=[path num2str(Y(1)) filesep fair '.nc'];
 
 % process interp coefs:
-lon1=use(Fgrid,'lon'); lon1(lon1>180)=lon1(lon1>180)-360;
-lat1=use(Fgrid,'lat');
+lon1=use(Fgrid,'longitude'); lon1(lon1>180)=lon1(lon1>180)-360;
+lat1=use(Fgrid,'latitude');
 [lon1,lat1]=meshgrid(lon1,lat1);
 [lon2r,lat2r]=roms_grid(grd,'r'); S=size(lon2r);
 
+if ~exist('tmpInterpCoef.mat','file')
 [I,J,W] = interp_coefs(lon1,lat1,lon2r,lat2r);
+  save tmpInterpCoef I J W
+  return
+else
+  load tmpInterpCoef
+end
 
 I1=I(1,:,:); I2=I(2,:,:); I3=I(3,:,:); I4=I(4,:,:);
 J1=J(1,:,:); J2=J(2,:,:); J3=J(3,:,:); J4=J(4,:,:);
@@ -57,16 +62,15 @@ for i=1:length(Y)
   bulkc=nydays;
 
   % input ncep2 filenames:
-  Fair = [path syear filesep fair syear,'.nc']; % T air 2m [C]
-  Fskt = [path syear filesep fskt syear,'.nc']; % skt for Lw calculation
-  Frh  = [path syear filesep frh  syear,'.nc']; % R humidity 2m [%]
-  Fpr  = [path syear filesep fpr  syear,'.nc']; % P rate [kg/m^2/s]
-  Fdsw = [path syear filesep fdsw syear,'.nc']; % Downward shortwave flux  [W/m^2]
-  Fusw = [path syear filesep fusw syear,'.nc']; % Upward shortwave flux  [W/m^2]
-  Flw  = [path syear filesep flw  syear,'.nc']; % Net outgoing Longwave flux  [W/m^2]
-  Fu10 = [path syear filesep fu10 syear,'.nc']; % U wind speed 10m
-  Fv10 = [path syear filesep fv10 syear,'.nc']; % V wind speed 10m
-  Fprs = [path syear filesep fprs syear,'.nc']; % surface pressure
+  Fair = [path syear filesep fair,'.nc']; % T air 2m [K]
+  Fprs = [path syear filesep fprs,'.nc']; % surface pressure [Pa]
+  Fu10 = [path syear filesep fu10,'.nc']; % U wind speed 10m
+  Fv10 = [path syear filesep fv10,'.nc']; % V wind speed 10m
+  Fnsr = [path syear filesep fnsr,'.nc']; % Net solar radiation [W/(m^2 s)]
+  Fnlw = [path syear filesep fnlw,'.nc']; % Net lonng wave [W/(m^2 s)]
+  Fpr  = [path syear filesep fpr ,'.nc']; % Total precipitation [m]
+  Fdew = [path syear filesep fdew,'.nc']; % dewpoint for relative humidity [K]
+
 
   % get bulk time:
   bulkt=use(Fair,'time')/24 -trm;
@@ -83,78 +87,68 @@ for i=1:length(Y)
 
   % load full vars:
   fprintf(1,'loading vars (10) year %d\n',year);
-  fprintf(1,' air'   ); AIR   = use(Fair,'air'  );
-  fprintf(1,' skt'   ); SKT   = use(Fskt,'skt'  );
-  fprintf(1,' shum'  ); SHUM  = use(Frh, 'shum' );
-  fprintf(1,' prate' ); PRATE = use(Fpr, 'prate');
-  fprintf(1,' dswrf' ); DSWRF = use(Fdsw,'dswrf');
-  fprintf(1,' uswrf' ); USWRF = use(Fusw,'uswrf');
-  fprintf(1,' dlwrf' ); DLWRF = use(Flw, 'dlwrf');
-  fprintf(1,' uwnd'  ); UWND  = use(Fu10,'uwnd' );
-  fprintf(1,' vwnd'  ); VWND  = use(Fv10,'vwnd' );
-  fprintf(1,' pres\n'); PRES  = use(Fprs,'pres' );
+  fprintf(1,' air'   ); AIR   = use(Fair,'t2m'  );
+  fprintf(1,' pres'); PRES  = use(Fprs,'msl' );
+  fprintf(1,' uwnd'  ); UWND  = use(Fu10,'u10' );
+  fprintf(1,' vwnd'  ); VWND  = use(Fv10,'v10' );
+  fprintf(1,' radsw' ); SWRF  = use(Fnsr,'ssr');
+    fprintf(1,'dt radsw' ); SW_DTHOURS=diff(use(Fnsr,'time','time','1:2'));
+    fprintf(1,'=%d',SW_DTHOURS );
+  fprintf(1,' dlwrf' ); DLWRF = use(Fnlw,'str');;
+    fprintf(1,'dt radlw' ); LW_DTHOURS=diff(use(Fnlw,'time','time','1:2'));
+    fprintf(1,'=%d',LW_DTHOURS );
+  fprintf(1,' prate' ); PRATE = use(Fpr, 'tp');
+    fprintf(1,'dt prate' ); PR_DTHOURS=diff(use(Fpr,'time','time','1:2'));
+    fprintf(1,'=%d',PR_DTHOURS );
+  fprintf(1,' dew (rhum)'   ); DEW   = use(Fdew,'d2m'  );
+
 
   for t=1:length(bulkt)
     fprintf(1,'time %6.2f  %d of %d ',bulkt(t),t,length(bulkt));
+
     % T air 2m [C]
-    %v=use(Fair,'air','time',t)-273.15; % convert to celcius
     v=squeeze(AIR(t,:,:))-273.15;
     v=( v(IJ1).*W1 + v(IJ2).*W2 + v(IJ3).*W3 + v(IJ4).*W4)./w;
     tair=reshape(v,S);
 
-    % skt for Lw calculation
-    %v=use(Fskt,'skt','time',t)-273.15; % convert to celcius
-    v=squeeze(SKT(t,:,:))-273.15;
+    % Surface pressure [Pa]
+    v=squeeze(PRES(t,:,:));
     v=( v(IJ1).*W1 + v(IJ2).*W2 + v(IJ3).*W3 + v(IJ4).*W4)./w;
-    skt=reshape(v,S);
+    pres=reshape(v,S);
 
-    % R humidity 2m [%]
-    %v=use(Frh,'shum','time',t);
-    v=squeeze(SHUM(t,:,:));
+
+    % Net shortwave flux [W/m^2]
+    v=squeeze(SWRF(t,:,:))*3600*SW_DTHOURS;
     v=( v(IJ1).*W1 + v(IJ2).*W2 + v(IJ3).*W3 + v(IJ4).*W4)./w;
-    shum=reshape(v,S);
-    rhum = shum./qsat(tair);
-    rhum(rhum>1.)=1.;
+    nswrs=reshape(v,S);
 
-    % P rate [kg/m^2/s]
-    %v=use(Fpr,'prate','time',t) * 0.1 * (24*60*60.0);  %convert [kg/m^2/s] to cm/day
-    v=squeeze(PRATE(t,:,:)) * 0.1 * (24*60*60.0);
+    % Longwave flux  ... not using
+    v=squeeze(DLWRF(t,:,:))*3600*LW_DTHOURS;
+    v=( v(IJ1).*W1 + v(IJ2).*W2 + v(IJ3).*W3 + v(IJ4).*W4)./w;
+    nlwf=reshape(v,S);
+    % downward: not used by model
+    dlwrf=-99999*nlwf;
+
+    % P rate [cm/day][kg/m^2/s]
+    v=squeeze(PRATE(t,:,:))*100*24/PR_DTHOURS; % m --> cm/day
     v=( v(IJ1).*W1 + v(IJ2).*W2 + v(IJ3).*W3 + v(IJ4).*W4)./w;
     prate=reshape(v,S);
     prate(abs(prate)<1.e-4)=0;
 
-    % Shortwave flux [W/m^2]
-    % Downward:
-    %dswrf=use(Fdsw,'dswrf','time',t);
-    dswrf=squeeze(DSWRF(t,:,:));
-    dswrf(dswrf<1.e-10)=0;
-    % Upward:
-    %uswrf=use(Fusw,'uswrf','time',t);
-    uswrf=squeeze(USWRF(t,:,:));
-    uswrf(uswrf<1.e-10)=0;
-    % Net:
-    v=dswrf-uswrf;
+    % R humidity 2m [%]
+    % [(112-0.1T+Td)/(112+0.9T)]^8, T, Td in Celsius
+    v=squeeze(DEW(t,:,:))-273.15;
     v=( v(IJ1).*W1 + v(IJ2).*W2 + v(IJ3).*W3 + v(IJ4).*W4)./w;
-    nswrs=reshape(v,S);
-
-    % Longwave flux  [W/m^2]
-    % Downward:
-    %v=use(Flw,'dlwrf','time',t);
-    v=squeeze(DLWRF(t,:,:));
-    v=( v(IJ1).*W1 + v(IJ2).*W2 + v(IJ3).*W3 + v(IJ4).*W4)./w;
-    dlwrf=-reshape(v,S);
-    % Net:
-    nlwf  = -lwhf(skt,-dlwrf);
-    nlwf(nlwf<1.e-10)=0;
+    Td=reshape(v,S);
+    T=tair;
+    rhum=((112-0.1*T+Td)./(112+0.9*T)).^8;
 
     % U wind speed 10 m
-    %v=use(Fu10,'uwnd','time',t);
     v=squeeze(UWND(t,:,:));
     v=( v(IJ1).*W1 + v(IJ2).*W2 + v(IJ3).*W3 + v(IJ4).*W4)./w;
     uwnd=reshape(v,S);
 
     % V wind speed 10 m
-    %v=use(Fv10,'vwnd','time',t);
     v=squeeze(VWND(t,:,:));
     v=( v(IJ1).*W1 + v(IJ2).*W2 + v(IJ3).*W3 + v(IJ4).*W4)./w;
     vwnd=reshape(v,S);
@@ -175,12 +169,6 @@ for i=1:length(Y)
     % uv stress to uv points:
     Taux=rho2u_2d(Taux);
     Tauy=rho2v_2d(Tauy);
-
-    % Surface pressure
-    %v=use(Fprs,'pres','time',t);
-    v=squeeze(PRES(t,:,:));
-    v=( v(IJ1).*W1 + v(IJ2).*W2 + v(IJ3).*W3 + v(IJ4).*W4)./w;
-    pres=reshape(v,S);
 
 
     % Fill BLK:
